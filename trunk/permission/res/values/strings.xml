@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Permission Friendly Apps</string>
+    <string name="title_application_activity">Permission Friendly Apps</string>
+    <string name="button_sort_name">Sort by name</string>
+    <string name="button_sort_score">Sort by score</string>
+</resources>
