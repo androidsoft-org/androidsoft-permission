@@ -40,5 +40,25 @@
         android:layout_width="match_parent"
 	android:layout_height="wrap_content"
         android:groupIndicator="@null" />
-
+        
+    <LinearLayout android:id="@+id/layout_no_permission"
+	android:orientation="vertical" 
+        android:layout_width="match_parent"
+	android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone" >
+        
+        <TextView  
+            android:text="@string/no_permission_message"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        
+        <Button android:id="@+id/button_market"
+            android:padding="20dp"
+            android:text="@string/button_market"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content" />
+        
+    </LinearLayout>
 </LinearLayout>

@@ -19,6 +19,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -38,7 +41,8 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
     private Button mButtonSortByName;
     private Button mButtonSortByScore;
     private ApplicationsListFragment mApplicationsListFragment;
-
+    private boolean mToggleName;
+    private boolean mToggleScore;
     /**
      * {@inheritDoc }
      */
@@ -57,7 +61,7 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
         FragmentManager fm = getSupportFragmentManager();
         mApplicationsListFragment = (ApplicationsListFragment) fm.findFragmentById(R.id.fragment_applications_list);
 
-        mApplicationsListFragment.update(PermissionService.getApplicationsSortedByScore(this));
+        mApplicationsListFragment.update(PermissionService.getApplicationsSortedByScore( this , mToggleScore ));
 
     }
 
@@ -94,14 +98,49 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
             sortByScore();
         }
     }
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+
+        return true;
+    }
+
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.menu_credits:
+                credits();
+                return true;
+        }
+        return false;
+    }
+
 
     private void sortByName()
     {
-        mApplicationsListFragment.update(PermissionService.getApplicationsSortedByName(this));
+        mToggleName = !mToggleName;
+        mApplicationsListFragment.update(PermissionService.getApplicationsSortedByName(this , mToggleName ));
     }
 
     private void sortByScore()
     {
-        mApplicationsListFragment.update(PermissionService.getApplicationsSortedByScore(this));
+        mToggleScore = !mToggleScore;
+        mApplicationsListFragment.update(PermissionService.getApplicationsSortedByScore(this , mToggleScore ));
+    }
+    
+    private void credits()
+    {
+        Intent intent = new Intent( this , CreditsActivity.class );
+        startActivity(intent);
     }
 }

@@ -46,10 +46,14 @@ public class PermissionService
      * @param context
      * @return
      */
-    public static List<AppInfo> getApplicationsSortedByName(Context context)
+    public static List<AppInfo> getApplicationsSortedByName(Context context, boolean sortOrder)
     {
         List<AppInfo> list = getApplications(context);
         Collections.sort(list, mNameComparator);
+        if (sortOrder)
+        {
+            Collections.reverse(list);
+        }
         return list;
 
     }
@@ -59,10 +63,14 @@ public class PermissionService
      * @param context
      * @return
      */
-    public static List<AppInfo> getApplicationsSortedByScore(Context context)
+    public static List<AppInfo> getApplicationsSortedByScore(Context context, boolean sortOrder)
     {
         List<AppInfo> list = getApplications(context);
         Collections.sort(list, mScoreComparator);
+        if (sortOrder)
+        {
+            Collections.reverse(list);
+        }
         return list;
 
     }
@@ -93,15 +101,15 @@ public class PermissionService
                     {
                         group = new PermissionGroup();
                         group.setName(pgi.name);
-                        group.setLabel( pgi.loadLabel(pm).toString() );
-                        group.setDescription( pgi.loadDescription(pm).toString());
+                        group.setLabel(pgi.loadLabel(pm).toString());
+                        group.setDescription(pgi.loadDescription(pm).toString());
                         listGroups.add(group);
                     }
                     Permission p = new Permission();
-                    p.setName( pi.name );
-                    p.setLabel( pi.loadLabel(pm).toString() );
-                    p.setDescription( pi.loadDescription(pm).toString());
-                    p.setDangerous( pi.protectionLevel !=  PermissionInfo.PROTECTION_NORMAL );
+                    p.setName(pi.name);
+                    p.setLabel(pi.loadLabel(pm).toString());
+                    p.setDescription(pi.loadDescription(pm).toString());
+                    p.setDangerous(pi.protectionLevel != PermissionInfo.PROTECTION_NORMAL);
                     group.addPermission(p);
 
                 }
@@ -128,12 +136,33 @@ public class PermissionService
                 app.setPackageName(info.packageName);
                 app.setVersion(info.versionName);
                 app.setIcon(info.applicationInfo.loadIcon(pm));
-                app.setListPermissions(info.permissions);
-                app.setRequestedPermissions(info.requestedPermissions);
+                app.setScore(getScore(info.packageName, pm));
                 list.add(app);
             }
         }
         return list;
+    }
+
+    private static int getScore(String packageName, PackageManager pm)
+    {
+        int score = 0;
+        try
+        {
+            PackageInfo pinfo = pm.getPackageInfo(packageName, PackageManager.GET_PERMISSIONS);
+            if (pinfo.requestedPermissions != null)
+            {
+                for (String permission : pinfo.requestedPermissions)
+                {
+                    PermissionInfo pi = pm.getPermissionInfo(permission, PackageManager.GET_PERMISSIONS);
+                    score += (pi.protectionLevel != PermissionInfo.PROTECTION_NORMAL) ? 100 : 1;
+                }
+            }
+        }
+        catch (NameNotFoundException ex)
+        {
+            Log.e(TAG, "Permission name not found : ");
+        }
+        return score;
     }
 
     private static PermissionGroup getGroup(List<PermissionGroup> list, String name)

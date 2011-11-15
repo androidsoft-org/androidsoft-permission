@@ -60,7 +60,7 @@ public class ApplicationsListFragment extends ListFragment
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        fillData( PermissionService.getApplicationsSortedByScore(mActivity));
+        fillData( PermissionService.getApplicationsSortedByScore(mActivity , false ));
         registerForContextMenu(getListView());
     }
 

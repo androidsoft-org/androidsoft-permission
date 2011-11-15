@@ -14,10 +14,7 @@
  */
 package org.androidsoft.app.permission.model;
 
-import android.content.pm.PermissionInfo;
 import android.graphics.drawable.Drawable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -31,8 +28,6 @@ public class AppInfo
     private String version;
     private Drawable icon;
     private int score;
-    private List<PermissionInfo> listPermissions = new ArrayList<PermissionInfo>();
-    private String[] requestedPermissions;
 
     /**
      * @return the name
@@ -96,56 +91,6 @@ public class AppInfo
     public void setScore(int score)
     {
         this.score = score;
-    }
-
-    /**
-     * @return the listPermissions
-     */
-    public List<PermissionInfo> getListPermissions()
-    {
-        return listPermissions;
-    }
-
-    /**
-     * @param permissions 
-     */
-    public void setListPermissions(PermissionInfo[] permissions)
-    {
-        if (permissions != null)
-        {
-            for (int i = 0; i < permissions.length; i++)
-            {
-                listPermissions.add(permissions[i]);
-                score += 1;
-                if (permissions[i].protectionLevel == PermissionInfo.PROTECTION_DANGEROUS)
-                {
-                    score += 10;
-                }
-            }
-        }
-    }
-
-    /**
-     * @return the requestedPermissions
-     */
-    public String[] getRequestedPermissions()
-    {
-        return requestedPermissions;
-    }
-
-    /**
-     * @param requestedPermissions the requestedPermissions to set
-     */
-    public void setRequestedPermissions(String[] requestedPermissions)
-    {
-        this.requestedPermissions = requestedPermissions;
-        if (requestedPermissions != null)
-        {
-            for (int i = 0; i < requestedPermissions.length; i++)
-            {
-                score += 1;
-            }
-        }
     }
 
     /**
