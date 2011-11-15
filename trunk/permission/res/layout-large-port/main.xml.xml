@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" 
+        android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+    <LinearLayout
+	android:orientation="vertical" 
+        android:layout_weight="1"
+	android:layout_width="match_parent" 
+        android:layout_height="0dp">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="horizontal" 
+        android:layout_width="wrap_content"
+	android:layout_height="wrap_content">
+                    
+            <Button android:id="@+id/button_sort_name"
+                android:layout_width="200dp"
+		android:layout_height="50dp"
+                android:text="Sort by name"
+                android:paddingLeft="10dp"
+        />
+            <Button android:id="@+id/button_sort_score"
+                android:layout_width="200dp"
+		android:layout_height="50dp"
+                android:text="Sort by score"
+                android:paddingLeft="10dp"
+        />            
+        
+        
+        </LinearLayout>            
+        <fragment android:name="org.androidsoft.app.permission.ui.ApplicationsListFragment"
+		android:id="@+id/fragment_applications_list" 
+                android:layout_width="match_parent"
+		android:layout_height="match_parent" />
+                
+                
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/note_detail_container"
+		android:orientation="horizontal" 
+                android:layout_weight="1"
+		android:layout_width="match_parent" 
+                android:layout_height="0dp" >
+        <fragment android:name="org.androidsoft.app.permission.ui.ApplicationFragment"
+		android:id="@+id/fragment_application_details" 
+                android:layout_width="match_parent"
+		android:layout_height="match_parent" />
+    </LinearLayout>
+
+
+</LinearLayout>

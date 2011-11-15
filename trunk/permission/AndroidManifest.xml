@@ -39,5 +39,9 @@
             android:name=".ui.ApplicationActivity"
             android:label="@string/title_application_activity" />
 
+        <activity
+            android:name=".ui.CreditsActivity"
+            android:label="@string/credits_menu" />
+            
     </application>
 </manifest>
