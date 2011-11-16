@@ -2,11 +2,12 @@
 <resources>
     <string name="app_name">Permission Friendly Apps</string>
     <string name="title_application_activity">Permission Friendly Apps</string>
+    <string name="button_go">Go</string>
     <string name="button_sort_name">Sort by name</string>
     <string name="button_sort_score">Sort by score</string>
     <string name="no_permission_message">Great ! This application requires no permission.\n\n\n
                It means that there is no ads, and it\'s totaly secure.\n\n\n
-               To encourage this kind of application,\n you can give a good rating to it on the Android Market.\n\n
+               To encourage this kind of application,\n give them a good rating on the Android Market.\n\n
                </string>
     <string name="button_market">Rate this application</string>
     <string name="credits_menu">About</string>
