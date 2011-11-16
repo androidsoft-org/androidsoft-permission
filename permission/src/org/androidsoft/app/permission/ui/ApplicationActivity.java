@@ -15,13 +15,19 @@
 package org.androidsoft.app.permission.ui;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import org.androidsoft.app.permission.R;
 
 /**
- *
+ * Application Activity
  * @author pierre
  */
 public class ApplicationActivity extends FragmentActivity
@@ -34,6 +40,16 @@ public class ApplicationActivity extends FragmentActivity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
+        {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+
+
+        
         setContentView(R.layout.application_activity);
         
         FragmentManager fm = getSupportFragmentManager();
@@ -46,4 +62,37 @@ public class ApplicationActivity extends FragmentActivity
 
     }
     
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+
+        return true;
+    }
+
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.menu_credits:
+                credits();
+                return true;
+        }
+        return false;
+    }
+
+    private void credits()
+    {
+        Intent intent = new Intent(this, CreditsActivity.class);
+        startActivity(intent);
+    }
+
 }

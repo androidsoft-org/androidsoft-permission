@@ -6,21 +6,22 @@
 
         <LinearLayout
 	android:orientation="horizontal" 
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-        android:gravity="center">
+        android:padding="10dp"
+        android:gravity="center_vertical|center_horizontal">
                     
             <Button android:id="@+id/button_sort_name"
                 android:layout_width="150dp"
 		android:layout_height="40dp"
                 android:text="@string/button_sort_name"
-                android:paddingLeft="10dp"/>
+                android:padding="10dp"/>
                 
             <Button android:id="@+id/button_sort_score"
                 android:layout_width="150dp"
 		android:layout_height="40dp"
                 android:text="@string/button_sort_score"
-                android:paddingLeft="10dp" />                    
+                android:padding="10dp" />                    
         
         </LinearLayout>            
         

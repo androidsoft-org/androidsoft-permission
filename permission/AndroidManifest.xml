@@ -27,7 +27,7 @@
             android:icon="@drawable/icon" 
             android:logo="@drawable/logo"
             android:hardwareAccelerated="true" > 
-        <activity android:name=".ui.MainActivity"
+        <activity android:name=".ui.SplashActivity"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,6 +35,10 @@
             </intent-filter>
         </activity>
         
+        <activity
+            android:name=".ui.MainActivity"
+            android:label="@string/title_application_activity" />
+
         <activity
             android:name=".ui.ApplicationActivity"
             android:label="@string/title_application_activity" />
