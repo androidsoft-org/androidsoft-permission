@@ -43,16 +43,22 @@ import org.androidsoft.app.permission.R;
  */
 public class ApplicationFragment extends Fragment implements View.OnClickListener
 {
+
     private static final String TAG = "androidsoft";
     private TextView mName;
     private ImageView mIcon;
     private TextView mTvPackageName;
     private TextView mTvVersion;
     private ExpandableListView mPermissions;
+    private LinearLayout mApplicationLayout;
     private LinearLayout mNoPermissionLayout;
+    private Button mButtonOpen;
+    private Button mButtonUninstall;
     private Button mButtonMarket;
+    private TextView mTvMessageNoApplication;
+    private Activity mActivity;
     private String mPackageName;
-    
+
     /**
      * {@inheritDoc }
      */
@@ -60,62 +66,99 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState)
     {
-        
+
         View v = inflater.inflate(R.layout.application_details, container, false);
-        
-        mName = (TextView) v.findViewById(R.id.name );
-        mIcon = (ImageView) v.findViewById(R.id.icon );
-        mTvPackageName = (TextView) v.findViewById(R.id.package_name );
-        mTvVersion = (TextView) v.findViewById(R.id.version );
-        mPermissions = (ExpandableListView) v.findViewById(R.id.permissions_list);  
+
+        mApplicationLayout = (LinearLayout) v.findViewById(R.id.layout_application);
+        mApplicationLayout.setVisibility(View.GONE);
+        mName = (TextView) v.findViewById(R.id.name);
+        mIcon = (ImageView) v.findViewById(R.id.icon);
+        mTvPackageName = (TextView) v.findViewById(R.id.package_name);
+        mTvVersion = (TextView) v.findViewById(R.id.version);
+        mButtonOpen = (Button) v.findViewById(R.id.button_open);
+        mButtonUninstall = (Button) v.findViewById(R.id.button_uninstall);
+        mPermissions = (ExpandableListView) v.findViewById(R.id.permissions_list);
         mNoPermissionLayout = (LinearLayout) v.findViewById(R.id.layout_no_permission);
-        mButtonMarket = (Button) v.findViewById( R.id.button_market);
-        mButtonMarket.setOnClickListener( this );
+        mButtonMarket = (Button) v.findViewById(R.id.button_market);
+        mButtonOpen.setOnClickListener(this);
+        mButtonUninstall.setOnClickListener(this);
+        mButtonMarket.setOnClickListener(this);
+        mTvMessageNoApplication = (TextView) v.findViewById(R.id.message_no_application);
         return v;
     }
-    
-    void updateApplication( Activity activity , String packageName)
+
+    void updateApplication(Activity activity, String packageName)
     {
         try
         {
+            mActivity = activity;
             mPackageName = packageName;
             PackageManager pm = activity.getPackageManager();
-            PackageInfo pi = pm.getPackageInfo(packageName, PackageManager.GET_PERMISSIONS );
+            PackageInfo pi = pm.getPackageInfo(packageName, PackageManager.GET_PERMISSIONS);
             mName.setText(pi.applicationInfo.loadLabel(pm).toString());
-            mIcon.setImageDrawable( pi.applicationInfo.loadIcon(pm));
+            mIcon.setImageDrawable(pi.applicationInfo.loadIcon(pm));
             mTvPackageName.setText(packageName);
             mTvVersion.setText(pi.versionName);
-            List<PermissionGroup> listGroups = PermissionService.getPermissions( pi.requestedPermissions , pm );
-            PermissionExpandableListAdapter adapter = new PermissionExpandableListAdapter( getActivity(), listGroups );  
+            List<PermissionGroup> listGroups = PermissionService.getPermissions(pi.requestedPermissions, pm);
+            PermissionExpandableListAdapter adapter = new PermissionExpandableListAdapter(getActivity(), listGroups);
             mPermissions.setAdapter(adapter);
-            for( int i = 0 ; i < listGroups.size() ; i++ )
+            for (int i = 0; i < listGroups.size(); i++)
             {
                 mPermissions.expandGroup(i);
             }
-            if( listGroups.isEmpty() )
+            if (listGroups.isEmpty())
             {
                 mNoPermissionLayout.setVisibility(View.VISIBLE);
             }
+            else
+            {
+                mNoPermissionLayout.setVisibility(View.GONE);
+            }
+            mTvMessageNoApplication.setVisibility(View.GONE);
+            mApplicationLayout.setVisibility(View.VISIBLE);
         }
         catch (NameNotFoundException ex)
         {
-            Log.e( TAG , "Package name not found : " + packageName );
+            Log.e(TAG, "Package name not found : " + packageName);
         }
     }
 
     public void onClick(View view)
     {
-        if( view == mButtonMarket )
+        if (view == mButtonOpen)
+        {
+            open();
+        }
+        else if (view == mButtonUninstall)
+        {
+            uninstall();
+        }
+        else if (view == mButtonMarket)
         {
             openMarket();
         }
     }
 
+    private void open()
+    {
+        Intent intentOpen = new Intent(Intent.ACTION_MAIN);
+        PackageManager pm = mActivity.getPackageManager();
+        intentOpen = pm.getLaunchIntentForPackage(mPackageName);
+        intentOpen.addCategory(Intent.CATEGORY_LAUNCHER);
+        startActivity(intentOpen);
+    }
+
+    private void uninstall()
+    {
+        String uri = "package:" + mPackageName;
+        Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, Uri.parse(uri));
+        startActivity(uninstallIntent);
+    }
+
     private void openMarket()
     {
         String uri = "market://details?id=" + mPackageName;
-        Intent goToMarket = new Intent(Intent.ACTION_VIEW,Uri.parse( uri ));
-        startActivity(goToMarket);
+        Intent intentGoToMarket = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        startActivity(intentGoToMarket);
     }
-    
 }

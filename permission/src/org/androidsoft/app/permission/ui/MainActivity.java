@@ -44,8 +44,8 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
     private Button mButtonSortByName;
     private Button mButtonSortByScore;
     private ApplicationsListFragment mApplicationsListFragment;
-    private boolean mToggleName;
-    private boolean mToggleScore;
+    private boolean mToggleName = true;
+    private boolean mToggleScore = false;
 
     /**
      * {@inheritDoc }
