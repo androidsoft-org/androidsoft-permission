@@ -5,6 +5,9 @@
     <string name="button_go">Go</string>
     <string name="button_sort_name">Sort by name</string>
     <string name="button_sort_score">Sort by score</string>
+    <string name="button_open">Open</string>
+    <string name="button_uninstall">Uninstall</string>
+    <string name="message_no_application">Select an application to view its permissions</string>
     <string name="no_permission_message">Great ! This application requires no permission.\n\n\n
                It means that there is no ads, and it\'s totaly secure.\n\n\n
                To encourage this kind of application,\n give them a good rating on the Android Market.\n\n

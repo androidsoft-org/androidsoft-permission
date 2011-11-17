@@ -20,16 +20,13 @@
             <Button android:id="@+id/button_sort_name"
                 android:layout_width="200dp"
 		android:layout_height="50dp"
-                android:text="Sort by name"
-                android:paddingLeft="10dp"
-        />
+                android:text="@string/button_sort_name"
+                android:paddingLeft="10dp" />
             <Button android:id="@+id/button_sort_score"
                 android:layout_width="200dp"
 		android:layout_height="50dp"
-                android:text="Sort by score"
-                android:paddingLeft="10dp"
-        />            
-        
+                android:text="@string/button_sort_score"
+                android:paddingLeft="10dp" />            
         
         </LinearLayout>            
         <fragment android:name="org.androidsoft.app.permission.ui.ApplicationsListFragment"

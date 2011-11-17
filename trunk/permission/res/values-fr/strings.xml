@@ -5,6 +5,9 @@
     <string name="button_go">Go</string>
     <string name="button_sort_name">Tri par nom</string>
     <string name="button_sort_score">Tri par score</string>
+    <string name="button_open">Ouvrir</string>
+    <string name="button_uninstall">Désinstaller</string>
+    <string name="message_no_application">Sélectionner une application pour visualiser ses permissions</string>
     <string name="no_permission_message"> Cette application ne requiert aucune permission !\n\n\n
                Cela signifie qu\'elle ne contient pas de pubs \n
                et qu\'elle est entièrement sans danger.\n\n\n

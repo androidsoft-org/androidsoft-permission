@@ -182,7 +182,7 @@ public class PermissionService
 
         public int compare(AppInfo app1, AppInfo app2)
         {
-            return app1.getName().compareTo(app2.getName());
+            return app1.getName().compareToIgnoreCase(app2.getName());
         }
     }
 
