@@ -36,7 +36,6 @@ public class ApplicationAdapter implements ListAdapter
 
     private List<AppInfo> mList;
     private Activity mActivity;
-    private Context mContext;
 
     /**
      * Constructor
@@ -46,7 +45,6 @@ public class ApplicationAdapter implements ListAdapter
     public ApplicationAdapter(Activity activity, List<AppInfo> list)
     {
         mActivity = activity;
-        mContext = activity.getApplicationContext();
         mList = list;
 
     }

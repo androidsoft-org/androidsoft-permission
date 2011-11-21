@@ -15,8 +15,10 @@
                donner leur une bonne note sur l\'Android Market.\n\n
                </string>
     <string name="button_market">Noter cette application</string>
+    <string name="help_menu">Aide</string>
     <string name="credits_menu">A propos</string>
     <string name="credits_app_name">Permission Friendly Apps</string>
-    <string name="credits_current_version">Version 1.0</string>
+    <string name="credits_current_version">Version 1.0.1</string>
+    <string name="help_asset">help-fr.html</string>
 
 </resources>

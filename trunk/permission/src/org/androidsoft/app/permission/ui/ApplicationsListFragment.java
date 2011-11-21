@@ -16,7 +16,6 @@ package org.androidsoft.app.permission.ui;
 
 import org.androidsoft.app.permission.ui.widget.ApplicationAdapter;
 import org.androidsoft.app.permission.model.AppInfo;
-import org.androidsoft.app.permission.service.PermissionService;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -98,8 +97,12 @@ public class ApplicationsListFragment extends ListFragment
     
     private void fillData( List<AppInfo> listApps )
     {
-        ApplicationAdapter apps = new ApplicationAdapter(getActivity(), listApps );
-        setListAdapter(apps);
+        Activity activity = getActivity();
+        if( activity != null )
+        {
+            ApplicationAdapter apps = new ApplicationAdapter( activity, listApps );
+            setListAdapter(apps);
+        }
 
     }
     

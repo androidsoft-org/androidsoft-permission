@@ -131,11 +131,20 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
     {
         switch (item.getItemId())
         {
+            case R.id.menu_help:
+                help();
+                return true;
             case R.id.menu_credits:
                 credits();
                 return true;
         }
         return false;
+    }
+
+    private void help()
+    {
+        Intent intent = new Intent(this, HelpActivity.class);
+        startActivity(intent);
     }
 
     private void credits()
