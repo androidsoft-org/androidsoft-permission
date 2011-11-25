@@ -14,24 +14,19 @@
  */
 package org.androidsoft.app.permission.ui;
 
-import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import org.androidsoft.app.permission.R;
+import org.androidsoft.utils.res.ResourceUtils;
+import org.androidsoft.utils.res.ResourceImageGetter;
+import org.androidsoft.utils.ui.BasicActivity;
 
 /**
- *
- * @author pierre
+ * Help activity
+ * @author Pierre Levy
  */
-public class HelpActivity extends Activity
+public class HelpActivity extends BasicActivity
 {
     @Override
     public void onCreate(Bundle icicle)
@@ -39,49 +34,32 @@ public class HelpActivity extends Activity
     
         super.onCreate(icicle);
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
-        {
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
-
         setContentView(R.layout.help);
         
         TextView tv = (TextView) findViewById(R.id.help);
-        tv.setText( Html.fromHtml(readHelp().toString()));
-    }
-    
-    private CharSequence readHelp()
-    {
-        BufferedReader in = null;
-        try
-        {
-            String asset = getString( R.string.help_asset );
-            in = new BufferedReader(new InputStreamReader(getAssets().open( asset )));
-            String line;
-            StringBuilder buffer = new StringBuilder();
-            while ((line = in.readLine()) != null)
-            {
-                buffer.append(line).append('\n');
-            }
-            return buffer;
-        } catch (IOException e)
-        {
-            return "";
-        } finally
-        {
-            if (in != null)
-            {
-                try
-                {
-                    in.close();
-                } catch (IOException e)
-                {
-                    Log.e("ARTags", "Error closing input stream while reading asset", e );
-                }
-            }
-        }
+        String asset = getString( R.string.asset_help );
+
+        String help = ResourceUtils.readAssetTextFile(this, asset );
+        tv.setText( Html.fromHtml( help , new ResourceImageGetter( this ) , null ));
     }
 
+    /**
+     * {@inheritDoc } 
+     */
+    @Override
+    public int getMenuResource()
+    {
+        return R.menu.menu_close;
+    }
+
+    /**
+     * {@inheritDoc } 
+     */
+    @Override
+    public int getMenuCloseId()
+    {
+        return R.id.menu_close;
+    }
+    
+   
 }

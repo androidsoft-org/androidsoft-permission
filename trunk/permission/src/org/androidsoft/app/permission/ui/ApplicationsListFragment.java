@@ -25,8 +25,8 @@ import android.widget.ListView;
 import java.util.List;
 
 /**
- *
- * @author pierre
+ * Application List Fragment
+ * @author Pierre Levy
  */
 public class ApplicationsListFragment extends ListFragment
 {

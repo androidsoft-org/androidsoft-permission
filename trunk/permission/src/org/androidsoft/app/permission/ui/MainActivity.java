@@ -35,7 +35,7 @@ import org.androidsoft.app.permission.model.AppInfo;
 
 /**
  * Main Activity 
- * @author pierre
+ * @author Pierre Levy
  */
 public class MainActivity extends FragmentActivity implements ApplicationsListFragment.AppListEventsCallback, OnClickListener
 {

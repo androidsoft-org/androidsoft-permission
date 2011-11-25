@@ -31,8 +31,8 @@ import org.androidsoft.app.permission.model.Permission;
 import org.androidsoft.app.permission.model.PermissionGroup;
 
 /**
- *
- * @author pierre
+ * Permission Service
+ * @author Pierre Levy
  */
 public class PermissionService
 {

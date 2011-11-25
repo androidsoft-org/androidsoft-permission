@@ -27,8 +27,8 @@ import java.util.List;
 import org.androidsoft.app.permission.R;
 
 /**
- *
- * @author pierre
+ * Permission ExpandableList Adapter
+ * @author Pierre Levy
  */
 public class PermissionExpandableListAdapter extends BaseExpandableListAdapter 
 {

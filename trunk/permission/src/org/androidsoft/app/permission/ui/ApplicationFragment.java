@@ -38,8 +38,8 @@ import java.util.List;
 import org.androidsoft.app.permission.R;
 
 /**
- *
- * @author pierre
+ * Application Fragment
+ * @author Pierre Levy
  */
 public class ApplicationFragment extends Fragment implements View.OnClickListener
 {

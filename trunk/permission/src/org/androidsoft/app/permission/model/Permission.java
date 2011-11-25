@@ -15,8 +15,8 @@
 package org.androidsoft.app.permission.model;
 
 /**
- *
- * @author pierre
+ * Permission object
+ * @author Pierre Levy
  */
 public class Permission
 {
