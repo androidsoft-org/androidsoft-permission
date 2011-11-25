@@ -16,7 +16,6 @@ package org.androidsoft.app.permission.ui.widget;
 
 import org.androidsoft.app.permission.model.AppInfo;
 import android.app.Activity;
-import android.content.Context;
 import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,8 +27,8 @@ import java.util.List;
 import org.androidsoft.app.permission.R;
 
 /**
- *
- * @author pierre
+ * Application adapter
+ * @author Pierre Levy
  */
 public class ApplicationAdapter implements ListAdapter
 {

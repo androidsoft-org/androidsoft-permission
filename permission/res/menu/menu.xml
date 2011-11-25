@@ -2,10 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/menu_help"
           android:icon="@android:drawable/ic_menu_help"
-          android:title="@string/help_menu"
+          android:title="@string/menu_help"
           android:showAsAction="ifRoom|withText" />
     <item android:id="@+id/menu_credits"
           android:icon="@android:drawable/ic_menu_info_details"
-          android:title="@string/credits_menu"
+          android:title="@string/menu_credits"
           android:showAsAction="ifRoom|withText" />
 </menu>

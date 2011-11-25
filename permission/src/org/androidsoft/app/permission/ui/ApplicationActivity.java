@@ -28,7 +28,7 @@ import org.androidsoft.app.permission.R;
 
 /**
  * Application Activity
- * @author pierre
+ * @author Pierre Levy
  */
 public class ApplicationActivity extends FragmentActivity
 {

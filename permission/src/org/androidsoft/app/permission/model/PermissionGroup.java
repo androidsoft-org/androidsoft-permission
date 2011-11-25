@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author pierre
+ * Permission Group Object
+ * @author Pierre Levy
  */
 public class PermissionGroup
 {

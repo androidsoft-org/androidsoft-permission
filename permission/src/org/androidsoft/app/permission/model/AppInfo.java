@@ -17,8 +17,8 @@ package org.androidsoft.app.permission.model;
 import android.graphics.drawable.Drawable;
 
 /**
- *
- * @author pierre
+ * Application Info object
+ * @author Pierre Levy
  */
 public class AppInfo
 {

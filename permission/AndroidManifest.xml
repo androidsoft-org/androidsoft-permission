@@ -18,8 +18,8 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="org.androidsoft.app.permission"
-      android:versionCode="3"
-      android:versionName="1.0.1">
+      android:versionCode="4"
+      android:versionName="1.1.1">
           
     <uses-sdk android:minSdkVersion="5" android:targetSdkVersion="11" />
 
@@ -46,11 +46,11 @@
 
         <activity
             android:name=".ui.HelpActivity"
-            android:label="@string/help_menu" />
+            android:label="@string/menu_help" />
             
         <activity
             android:name=".ui.CreditsActivity"
-            android:label="@string/credits_menu" />
+            android:label="@string/menu_credits" />
             
     </application>
 </manifest>

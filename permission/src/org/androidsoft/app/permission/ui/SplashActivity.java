@@ -14,23 +14,20 @@
  */
 package org.androidsoft.app.permission.ui;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import org.androidsoft.app.permission.R;
+import org.androidsoft.utils.ui.WhatsNewActivity;
 
 /**
- *
+ * Splash activity
  * @author Pierre Levy
  */
-public class SplashActivity extends Activity implements OnClickListener
+public class SplashActivity extends WhatsNewActivity implements OnClickListener
 {
 
     private Button mButtonPlay;
@@ -39,13 +36,6 @@ public class SplashActivity extends Activity implements OnClickListener
     public void onCreate(Bundle icicle)
     {
         super.onCreate(icicle);
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
-        {
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
 
         setContentView(R.layout.splash);
 
@@ -67,5 +57,29 @@ public class SplashActivity extends Activity implements OnClickListener
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public int getFirstRunDialogTitleRes()
+    {
+        return R.string.first_run_dialog_title;
+    }
+
+    @Override
+    public int getFirstRunDialogMsgRes()
+    {
+        return R.string.first_run_dialog_message;
+    }
+
+    @Override
+    public int getWhatsNewDialogTitleRes()
+    {
+        return R.string.whats_new_dialog_title;
+    }
+
+    @Override
+    public int getWhatsNewDialogMsgRes()
+    {
+        return R.string.whats_new_dialog_message;
     }
 }

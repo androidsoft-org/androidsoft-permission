@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- What's new dialog -->
+    <string name="first_run_dialog_title">Bienvenue dans Permission Friendly Apps</string>
+    <string name="first_run_dialog_message">Merci d\'avoir télécharger Permission Friendly Apps\n\n
+    Instructions :\n
+    \t• Cliquer sur les applications pour afficher le détail des permissions.\n
+    \n\n \n
+    </string>
+    <string name="whats_new_dialog_title">Quoi de neuf dans Permission Friendly Apps</string>
+    <string name="whats_new_dialog_message">Merci de mettre à jour Permission Friendly Apps\n\n
+    <b>Nouveau dans la version 1.1:</b>\n
+    \t• Nouvel écran d\'aide.\n
+    \t• Correction de bugs mineurs.\n
+    \n\nN\'oubliez de nous encourager en laissant une évaluation.
+    </string>
+
+     <!-- Credits screen -->
+    <string name="credits_current_version">Version 1.1.1</string>
+    <string name="credits_app_name">Permission Friendly Apps</string>
+
+    <!-- Menu -->
+    <string name="menu_credits">A propos</string>
+    <string name="menu_help">Aide</string>
+    
     <string name="app_name">Permission Friendly Apps</string>
     <string name="title_application_activity">Permission Friendly Apps</string>
     <string name="button_go">Go</string>
@@ -14,11 +37,10 @@
                Pour encourager ce type d\'application\n
                donner leur une bonne note sur l\'Android Market.\n\n
                </string>
+               
     <string name="button_market">Noter cette application</string>
-    <string name="help_menu">Aide</string>
-    <string name="credits_menu">A propos</string>
-    <string name="credits_app_name">Permission Friendly Apps</string>
-    <string name="credits_current_version">Version 1.0.1</string>
-    <string name="help_asset">help-fr.html</string>
+    <string name="asset_help">help-fr.html</string>
+    
+    
 
 </resources>
