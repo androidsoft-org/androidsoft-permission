@@ -70,7 +70,7 @@
         android:visibility="gone" >
         
         <TextView  
-            android:text="@string/no_permission_message"
+            android:text="@string/message_no_permission"
             android:gravity="center_vertical|center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

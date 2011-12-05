@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+/* Copyright (c) 2010-2011 Pierre LEVY androidsoft.org
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+-->
+
 <resources>
     
     <!-- What's new dialog -->
@@ -18,7 +35,7 @@
 
 
     <!-- Credits screen -->
-    <string name="credits_current_version">Version 1.1.1</string>
+    <string name="credits_current_version">Version 1.1.2</string>
     <string name="credits_app_name">Permission Friendly Apps</string>
 
 
@@ -34,13 +51,14 @@
     <string name="button_open">Open</string>
     <string name="button_uninstall">Uninstall</string>
     <string name="message_no_application">Select an application to view its permissions</string>
-    <string name="no_permission_message">Great ! This application requires no permission.\n\n\n
+    <string name="message_no_permission">Great ! This application requires no permission.\n\n\n
                It means that there is no ads, and it\'s totaly secure.\n\n\n
                To encourage this kind of application,\n give them a good rating on the Android Market.\n\n
                </string>
     <string name="button_market">Rate this application</string>
     <string name="asset_help">help.html</string>
-
     
+    <string name="message_error_open">Sorry, unable to open this application !</string>
+    <string name="message_error_market">Sorry, unable to access to the Android Market !</string>
 
 </resources>

@@ -34,6 +34,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import java.util.List;
 import org.androidsoft.app.permission.R;
 
@@ -123,6 +124,9 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
         }
     }
 
+    /**
+     * {@inheritDoc }
+     */
     public void onClick(View view)
     {
         if (view == mButtonOpen)
@@ -139,15 +143,28 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
         }
     }
 
+    /**
+     * Open the application
+     */
     private void open()
     {
         Intent intentOpen = new Intent(Intent.ACTION_MAIN);
         PackageManager pm = mActivity.getPackageManager();
         intentOpen = pm.getLaunchIntentForPackage(mPackageName);
-        intentOpen.addCategory(Intent.CATEGORY_LAUNCHER);
-        startActivity(intentOpen);
+        if( intentOpen != null )
+        {
+            intentOpen.addCategory(Intent.CATEGORY_LAUNCHER);
+            startActivity(intentOpen);
+        }
+        else
+        {
+            Toast.makeText(mActivity, getString( R.string.message_error_open), Toast.LENGTH_LONG ).show();
+        }
     }
 
+    /**
+     * Uninstall the application
+     */
     private void uninstall()
     {
         String uri = "package:" + mPackageName;
@@ -155,10 +172,20 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
         startActivity(uninstallIntent);
     }
 
+    /**
+     * Open the market
+     */
     private void openMarket()
     {
         String uri = "market://details?id=" + mPackageName;
         Intent intentGoToMarket = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-        startActivity(intentGoToMarket);
+        if( intentGoToMarket != null )
+        {
+            startActivity(intentGoToMarket);
+        }
+        else
+        {
+            Toast.makeText(mActivity, getString( R.string.message_error_market ), Toast.LENGTH_LONG ).show();
+        }
     }
 }
