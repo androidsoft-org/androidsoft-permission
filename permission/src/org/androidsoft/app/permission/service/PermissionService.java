@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.androidsoft.app.permission.model.AppInfo;
 import org.androidsoft.app.permission.model.Permission;
 import org.androidsoft.app.permission.model.PermissionGroup;
@@ -175,6 +177,20 @@ public class PermissionService
             }
         }
         return null;
+    }
+
+    public static boolean exists(Context context , String packageName)
+    {
+        try
+        {
+            PackageManager pm = context.getPackageManager();
+            PackageInfo pi = pm.getPackageInfo(packageName, PackageManager.GET_PERMISSIONS);
+        }
+        catch (NameNotFoundException ex)
+        {
+            return false;
+        }
+        return true;
     }
 
     private static class NameComparator implements Comparator<AppInfo>

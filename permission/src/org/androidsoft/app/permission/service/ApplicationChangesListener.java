@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
 /* Copyright (c) 2010-2011 Pierre LEVY androidsoft.org
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,21 +12,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
--->
+package org.androidsoft.app.permission.service;
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" 
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="20dp">
-            
-    <ScrollView 
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        <TextView android:id="@+id/help"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-                
-    </ScrollView>
-</LinearLayout>
+/**
+ * Application  ChangeListener
+ * @author Pierre Levy
+ */
+public interface ApplicationChangesListener
+{
+    /**
+     * Callback for application changes
+     */
+    void onApplicationChange();
+}

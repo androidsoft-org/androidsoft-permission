@@ -26,14 +26,14 @@
     </string>
     <string name="whats_new_dialog_title">Quoi de neuf dans Permission Friendly Apps</string>
     <string name="whats_new_dialog_message">Merci de mettre à jour Permission Friendly Apps\n\n
-    <b>Nouveau dans la version 1.1:</b>\n
-    \t• Nouvel écran d\'aide.\n
-    \t• Correction de bugs mineurs.\n
+    <b>Nouveau dans la version 1.2:</b>\n
+    \t• Interface utilisateur améliorée.\n
+    \t• Correction de bugs mineurs (synchronistion après désinstallation).\n
     \n\nN\'oubliez de nous encourager en laissant une évaluation.
     </string>
 
      <!-- Credits screen -->
-    <string name="credits_current_version">Version 1.1.2</string>
+    <string name="credits_current_version">Version 1.2.0</string>
     <string name="credits_app_name">Permission Friendly Apps</string>
 
     <!-- Menu -->

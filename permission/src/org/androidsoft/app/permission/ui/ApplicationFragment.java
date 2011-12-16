@@ -36,7 +36,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.List;
+import org.androidsoft.app.permission.Constants;
 import org.androidsoft.app.permission.R;
+import org.androidsoft.app.permission.service.ApplicationChangesService;
 
 /**
  * Application Fragment
@@ -45,7 +47,6 @@ import org.androidsoft.app.permission.R;
 public class ApplicationFragment extends Fragment implements View.OnClickListener
 {
 
-    private static final String TAG = "androidsoft";
     private TextView mName;
     private ImageView mIcon;
     private TextView mTvPackageName;
@@ -90,37 +91,45 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
 
     void updateApplication(Activity activity, String packageName)
     {
-        try
+        if (PermissionService.exists(activity, packageName))
         {
-            mActivity = activity;
-            mPackageName = packageName;
-            PackageManager pm = activity.getPackageManager();
-            PackageInfo pi = pm.getPackageInfo(packageName, PackageManager.GET_PERMISSIONS);
-            mName.setText(pi.applicationInfo.loadLabel(pm).toString());
-            mIcon.setImageDrawable(pi.applicationInfo.loadIcon(pm));
-            mTvPackageName.setText(packageName);
-            mTvVersion.setText(pi.versionName);
-            List<PermissionGroup> listGroups = PermissionService.getPermissions(pi.requestedPermissions, pm);
-            PermissionExpandableListAdapter adapter = new PermissionExpandableListAdapter(getActivity(), listGroups);
-            mPermissions.setAdapter(adapter);
-            for (int i = 0; i < listGroups.size(); i++)
+            try
             {
-                mPermissions.expandGroup(i);
+                mActivity = activity;
+                mPackageName = packageName;
+                PackageManager pm = activity.getPackageManager();
+                PackageInfo pi = pm.getPackageInfo(packageName, PackageManager.GET_PERMISSIONS);
+                mName.setText(pi.applicationInfo.loadLabel(pm).toString());
+                mIcon.setImageDrawable(pi.applicationInfo.loadIcon(pm));
+                mTvPackageName.setText(packageName);
+                mTvVersion.setText(pi.versionName);
+                List<PermissionGroup> listGroups = PermissionService.getPermissions(pi.requestedPermissions, pm);
+                PermissionExpandableListAdapter adapter = new PermissionExpandableListAdapter(getActivity(), listGroups);
+                mPermissions.setAdapter(adapter);
+                for (int i = 0; i < listGroups.size(); i++)
+                {
+                    mPermissions.expandGroup(i);
+                }
+                if (listGroups.isEmpty())
+                {
+                    mNoPermissionLayout.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    mNoPermissionLayout.setVisibility(View.GONE);
+                }
+                mTvMessageNoApplication.setVisibility(View.GONE);
+                mApplicationLayout.setVisibility(View.VISIBLE);
             }
-            if (listGroups.isEmpty())
+            catch (NameNotFoundException ex)
             {
-                mNoPermissionLayout.setVisibility(View.VISIBLE);
+                Log.e(Constants.TAG, "Package name not found : " + packageName);
             }
-            else
-            {
-                mNoPermissionLayout.setVisibility(View.GONE);
-            }
-            mTvMessageNoApplication.setVisibility(View.GONE);
-            mApplicationLayout.setVisibility(View.VISIBLE);
         }
-        catch (NameNotFoundException ex)
+        else
         {
-            Log.e(TAG, "Package name not found : " + packageName);
+            mTvMessageNoApplication.setVisibility(View.VISIBLE);
+            mApplicationLayout.setVisibility(View.GONE);
         }
     }
 
@@ -151,14 +160,14 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
         Intent intentOpen = new Intent(Intent.ACTION_MAIN);
         PackageManager pm = mActivity.getPackageManager();
         intentOpen = pm.getLaunchIntentForPackage(mPackageName);
-        if( intentOpen != null )
+        if (intentOpen != null)
         {
             intentOpen.addCategory(Intent.CATEGORY_LAUNCHER);
             startActivity(intentOpen);
         }
         else
         {
-            Toast.makeText(mActivity, getString( R.string.message_error_open), Toast.LENGTH_LONG ).show();
+            Toast.makeText(mActivity, getString(R.string.message_error_open), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -170,6 +179,8 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
         String uri = "package:" + mPackageName;
         Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, Uri.parse(uri));
         startActivity(uninstallIntent);
+
+        ApplicationChangesService.notifyListeners();
     }
 
     /**
@@ -179,13 +190,13 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
     {
         String uri = "market://details?id=" + mPackageName;
         Intent intentGoToMarket = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-        if( intentGoToMarket != null )
+        if (intentGoToMarket != null)
         {
             startActivity(intentGoToMarket);
         }
         else
         {
-            Toast.makeText(mActivity, getString( R.string.message_error_market ), Toast.LENGTH_LONG ).show();
+            Toast.makeText(mActivity, getString(R.string.message_error_market), Toast.LENGTH_LONG).show();
         }
     }
 }

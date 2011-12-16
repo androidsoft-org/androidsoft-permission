@@ -132,6 +132,7 @@ public class ApplicationAdapter implements ListAdapter
         {
             imageScore.setImageResource(R.drawable.dangerous);
         }
+
         return convertView;
     }
 
