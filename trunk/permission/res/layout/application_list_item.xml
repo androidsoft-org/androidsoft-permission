@@ -1,36 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+/* Copyright (c) 2010-2011 Pierre LEVY androidsoft.org
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+-->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="horizontal" 
         android:layout_width="match_parent"
-	android:layout_height="match_parent"        
-        >
+	android:layout_height="match_parent">
 
     <ImageView android:id="@+id/icon"
-        android:layout_width="45dp"
-	android:layout_height="45dp"
-        android:padding="5dp"/>
+        android:layout_width="@dimen/icon_small_app"
+	android:layout_height="@dimen/icon_small_app"
+        android:padding="@dimen/padding_icon"/>
     <LinearLayout
 	android:orientation="vertical"
         android:layout_weight="1"
         android:layout_width="0dp"
-	android:layout_height="wrap_content"
-        >
+	android:layout_height="wrap_content" >
+            
         <TextView android:id="@+id/name"
-        android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-        android:padding="2dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/large_font_list"
+            android:padding="@dimen/padding_text"/>
         <TextView android:id="@+id/version"
-        android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-        android:textSize="10sp"/>
-        <TextView android:id="@+id/score"
-        android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-        android:textSize="10sp"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/small_font_list"
+            android:paddingLeft="@dimen/padding_text"/>
+        <TextView style="@style/text_score" 
+            android:id="@+id/score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/small_font_list"
+            android:paddingLeft="@dimen/padding_text"/>
     </LinearLayout>
+    
     <ImageView android:id="@+id/score_icon"
-        android:layout_width="60dp"
-	android:layout_height="60dp"
-        android:padding="10dp"/>
+        android:layout_width="@dimen/icon_score"
+	android:layout_height="@dimen/icon_score"
+        android:padding="@dimen/padding_icon"/>
 
 </LinearLayout>

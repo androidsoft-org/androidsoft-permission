@@ -14,6 +14,7 @@
  */
 package org.androidsoft.app.permission.ui;
 
+import org.androidsoft.app.permission.service.ApplicationChangesListener;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,14 +25,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 import org.androidsoft.app.permission.R;
+import org.androidsoft.app.permission.service.ApplicationChangesService;
+import org.androidsoft.app.permission.service.PermissionService;
 
 /**
  * Application Activity
  * @author Pierre Levy
  */
-public class ApplicationActivity extends FragmentActivity
+public class ApplicationActivity extends FragmentActivity implements ApplicationChangesListener
 {
+    private String mPackageName;
+    private boolean mInvalidate;
     /**
      * 
      * @param savedInstanceState
@@ -56,9 +62,11 @@ public class ApplicationActivity extends FragmentActivity
         ApplicationFragment applicationFragment = (ApplicationFragment) fm.findFragmentById( R.id.fragment_application_details );
         
         Intent intent = getIntent();
-        String packageName = intent.getStringExtra( MainActivity.EXTRA_PACKAGE_NAME );
+        mPackageName = intent.getStringExtra( MainActivity.EXTRA_PACKAGE_NAME );
         
-        applicationFragment.updateApplication( this, packageName );
+        applicationFragment.updateApplication( this, mPackageName );
+        
+        ApplicationChangesService.registerListener(this);
 
     }
     
@@ -92,6 +100,18 @@ public class ApplicationActivity extends FragmentActivity
         return false;
     }
 
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        if( mInvalidate && !PermissionService.exists( this, mPackageName ))
+        {
+            finish();
+        }
+    }
+    
+    
+
     private void help()
     {
         Intent intent = new Intent(this, HelpActivity.class);
@@ -102,6 +122,11 @@ public class ApplicationActivity extends FragmentActivity
     {
         Intent intent = new Intent(this, CreditsActivity.class);
         startActivity(intent);
+    }
+
+    public void onApplicationChange()
+    {
+        mInvalidate = true;
     }
 
 }

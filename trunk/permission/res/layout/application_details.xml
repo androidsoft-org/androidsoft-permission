@@ -1,65 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+/* Copyright (c) 2010-2011 Pierre LEVY androidsoft.org
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+-->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" 
         android:layout_width="match_parent"
-	android:layout_height="match_parent" >
+	android:layout_height="match_parent" 
+        android:padding="@dimen/padding_pane"
+        android:background="@drawable/border">
+            
     <LinearLayout android:id="@+id/layout_application"
-	android:orientation="horizontal" 
-        android:layout_width="match_parent"
-	android:layout_height="wrap_content" >
-        
-        <ImageView android:id="@+id/icon"
-        android:layout_width="60dp"
-	android:layout_height="60dp"
-        android:padding="10dp"/>
-        
-        <LinearLayout
 	android:orientation="vertical" 
         android:layout_width="match_parent"
 	android:layout_height="wrap_content" >
+        
+        <LinearLayout android:orientation="horizontal" 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        
+            <ImageView android:id="@+id/icon"
+                android:layout_width="@dimen/icon"
+                android:layout_height="@dimen/icon"
+                android:padding="@dimen/padding"/>
+        
+            <LinearLayout
+                android:orientation="vertical" 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
             
-            <TextView android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:padding="2dp"/>
-            <TextView android:id="@+id/package_name"
-            android:textSize="10sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-            <TextView android:id="@+id/version"
-            android:textSize="10sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+                <TextView android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/large_font_detail"
+                android:textStyle="bold"
+                android:padding="@dimen/padding_text"/>
+                <TextView android:id="@+id/package_name"
+                android:textSize="@dimen/small_font_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_text"/>
+                <TextView android:id="@+id/version"
+                android:textSize="@dimen/small_font_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_text"/>
 
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
     
-    <LinearLayout
+        <LinearLayout
 	android:orientation="horizontal" 
         android:layout_width="match_parent"
-	android:layout_height="wrap_content" >
-            <Button android:id="@+id/button_open"
-                android:layout_width="150dp"
+	android:layout_height="wrap_content" 
+        android:padding="@dimen/padding_pane"
+        android:gravity="center_vertical|center_horizontal">
+            <Button  style="@style/button"
+                android:id="@+id/button_open"
+                android:layout_width="@dimen/button_width"
 		android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="@dimen/padding"
                 android:text="@string/button_open" />
-            <Button android:id="@+id/button_uninstall"
-                android:layout_width="150dp"
+            <Button style="@style/button" 
+                android:id="@+id/button_uninstall"
+                android:layout_width="@dimen/button_width"
 		android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="@dimen/padding"
                 android:text="@string/button_uninstall" />            
             
+        </LinearLayout>
     </LinearLayout>
 
-    <TextView android:id="@+id/message_no_application"
+    <TextView style="@style/text_message"
+        android:id="@+id/message_no_application"
         android:layout_width="match_parent"
 	android:layout_height="match_parent"
-        android:text="" />
+        android:text="@string/message_no_application"
+        android:gravity="center_vertical|center_horizontal" />
 
     <ExpandableListView android:id="@+id/permissions_list"
         android:layout_width="match_parent"
 	android:layout_height="wrap_content"
+        android:padding="@dimen/padding_pane"
         android:groupIndicator="@null"/>
 
     <LinearLayout android:id="@+id/layout_no_permission"
@@ -75,10 +110,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         
-        <Button android:id="@+id/button_market"
-            android:padding="20dp"
+        <Button  style="@style/button"
+            android:id="@+id/button_market"
+            android:padding="@dimen/padding_market"
             android:text="@string/button_market"
-            android:layout_width="200dp"
+            android:layout_width="@dimen/button_width_market"
             android:layout_height="wrap_content" />
         
     </LinearLayout>
