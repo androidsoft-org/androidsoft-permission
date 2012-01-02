@@ -21,4 +21,6 @@ package org.androidsoft.app.permission;
 public class Constants
 {
     public static final String TAG = "androidsoft.org";
+    public static final String PREFS = "permission_prefs";
+    public static final String KEY_TRUSTED_APPS = "trusted_apps"; 
 }

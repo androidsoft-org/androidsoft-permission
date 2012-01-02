@@ -18,6 +18,8 @@
 
 <!-- default dimensions (phone) -->
 <resources>
+    <dimen name="bar_height">5dp</dimen>
+    <dimen name="bar_font">16sp</dimen>
     <dimen name="icon">70dp</dimen>
     <dimen name="icon_small_app">50dp</dimen>
     <dimen name="icon_score">45dp</dimen>

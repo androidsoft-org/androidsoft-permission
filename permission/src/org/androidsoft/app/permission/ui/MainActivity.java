@@ -31,7 +31,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import java.util.List;
 import org.androidsoft.app.permission.R;
 import org.androidsoft.app.permission.model.AppInfo;
@@ -48,13 +49,19 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
     private static final String KEY_SORT = "sort";
     private static final String KEY_TOGGLE_NAME = "toggle_name";
     private static final String KEY_TOGGLE_SCORE = "toggle_score";
+    private static final String KEY_SHOW_TRUSTED = "show_trusted";
     private static final int SORT_SCORE = 0;
     private static final int SORT_NAME = 1;
-    private Button mButtonSortByName;
-    private Button mButtonSortByScore;
+    private TextView mButtonSortByName;
+    private TextView mButtonSortByScore;
+    private ImageView mButtonShowTrusted;
+    private View mIndicatorName;
+    private View mIndicatorScore;
+    private View mIndicatorTrusted;
     private ApplicationsListFragment mApplicationsListFragment;
     private boolean mToggleName = true;
     private boolean mToggleScore = false;
+    private boolean mShowTrusted;
     private int mSort;
     private boolean mInvalidate;
     private String mPackageName;
@@ -77,11 +84,18 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
 
         setContentView(R.layout.main);
 
-        mButtonSortByName = (Button) findViewById(R.id.button_sort_name);
+        mButtonSortByName = (TextView) findViewById(R.id.button_sort_name);
         mButtonSortByName.setOnClickListener(this);
 
-        mButtonSortByScore = (Button) findViewById(R.id.button_sort_score);
+        mButtonSortByScore = (TextView) findViewById(R.id.button_sort_score);
         mButtonSortByScore.setOnClickListener(this);
+        
+        mButtonShowTrusted = (ImageView) findViewById( R.id.button_show_trusted);
+        mButtonShowTrusted.setOnClickListener(this);
+        
+        mIndicatorName = findViewById( R.id.indicator_name );
+        mIndicatorScore = findViewById( R.id.indicator_score );
+        mIndicatorTrusted = findViewById( R.id.indicator_trusted );
 
         FragmentManager fm = getSupportFragmentManager();
         mApplicationsListFragment = (ApplicationsListFragment) fm.findFragmentById(R.id.fragment_applications_list);
@@ -115,6 +129,7 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
      */
     public void onApplicationChange()
     {
+        refreshAppList();
         mInvalidate = true;
     }
 
@@ -130,6 +145,9 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
         else if (view == mButtonSortByScore)
         {
             sortByScore();
+        } else if ( view == mButtonShowTrusted )
+        {
+            toggleShowTrusted();
         }
     }
 
@@ -172,6 +190,7 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
         editor.putInt(KEY_SORT, mSort);
         editor.putBoolean(KEY_TOGGLE_NAME, mToggleName);
         editor.putBoolean(KEY_TOGGLE_SCORE, mToggleScore);
+        editor.putBoolean(KEY_SHOW_TRUSTED, mShowTrusted);
         editor.commit();
     }
 
@@ -183,12 +202,14 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
         mSort = prefs.getInt(KEY_SORT, SORT_SCORE);
         mToggleName = prefs.getBoolean(KEY_TOGGLE_NAME, false);
         mToggleScore = prefs.getBoolean(KEY_TOGGLE_SCORE, false);
+        mShowTrusted = prefs.getBoolean(KEY_SHOW_TRUSTED, true );
         if (mInvalidate)
         {
-            refreshAppList();
+            updateUI();
             refreshApplicationFragment();
             mInvalidate = false;
         }
+        refreshIndicators();
     }
 
     private void refreshAppList()
@@ -221,16 +242,28 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
     {
         mToggleName = !mToggleName;
         mSort = SORT_NAME;
-        refreshAppList();
+        updateUI();
     }
 
     private void sortByScore()
     {
         mToggleScore = !mToggleScore;
         mSort = SORT_SCORE;
-        refreshAppList();
+        updateUI();
     }
 
+    private void toggleShowTrusted()
+    {
+        mShowTrusted = !mShowTrusted;
+        updateUI();
+    }
+
+    private void updateUI()
+    {
+        refreshAppList();
+        refreshIndicators();
+    }
+    
     private void update(List<AppInfo> list)
     {
         mApplicationsListFragment.update(list);
@@ -241,13 +274,38 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
         switch (mSort)
         {
             case SORT_NAME:
-                return PermissionService.getApplicationsSortedByName(this, mToggleName);
+                return PermissionService.getApplicationsSortedByName(this, mToggleName , mShowTrusted );
 
             case SORT_SCORE:
             default:
-                return PermissionService.getApplicationsSortedByScore(this, mToggleScore);
+                return PermissionService.getApplicationsSortedByScore(this, mToggleScore , mShowTrusted);
         }
     }
+    
+    private void refreshIndicators()
+    {
+        if( mSort == SORT_SCORE )
+        {
+            mIndicatorScore.setBackgroundResource(R.drawable.bar_on );
+            mIndicatorName.setBackgroundResource(R.drawable.bar_off );
+        }
+        else
+        {
+            mIndicatorScore.setBackgroundResource(R.drawable.bar_off );
+            mIndicatorName.setBackgroundResource(R.drawable.bar_on );
+        }
+        
+        if( mShowTrusted )
+        {
+            mIndicatorTrusted.setBackgroundResource(R.drawable.bar_on);
+        }
+        else
+        {
+            mIndicatorTrusted.setBackgroundResource(R.drawable.bar_off);
+        }
+    }
+
+    
 
     private class LoadingTask extends AsyncTask<Void, Void, Void>
     {

@@ -57,6 +57,7 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
     private Button mButtonOpen;
     private Button mButtonUninstall;
     private Button mButtonMarket;
+    private ImageView mIvTrusted;
     private TextView mTvMessageNoApplication;
     private Activity mActivity;
     private String mPackageName;
@@ -82,9 +83,11 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
         mPermissions = (ExpandableListView) v.findViewById(R.id.permissions_list);
         mNoPermissionLayout = (LinearLayout) v.findViewById(R.id.layout_no_permission);
         mButtonMarket = (Button) v.findViewById(R.id.button_market);
+        mIvTrusted = (ImageView) v.findViewById(R.id.trusted);
         mButtonOpen.setOnClickListener(this);
         mButtonUninstall.setOnClickListener(this);
         mButtonMarket.setOnClickListener(this);
+        mIvTrusted.setOnClickListener(this);
         mTvMessageNoApplication = (TextView) v.findViewById(R.id.message_no_application);
         return v;
     }
@@ -113,13 +116,24 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
                 if (listGroups.isEmpty())
                 {
                     mNoPermissionLayout.setVisibility(View.VISIBLE);
+                    mIvTrusted.setVisibility(View.GONE);
                 }
                 else
                 {
                     mNoPermissionLayout.setVisibility(View.GONE);
+                    mIvTrusted.setVisibility(View.VISIBLE);
+                    if (PermissionService.isTrusted(mActivity, mPackageName))
+                    {
+                        mIvTrusted.setImageResource(R.drawable.trusted_on);
+                    }
+                    else
+                    {
+                        mIvTrusted.setImageResource(R.drawable.trusted_off);
+                    }
                 }
                 mTvMessageNoApplication.setVisibility(View.GONE);
                 mApplicationLayout.setVisibility(View.VISIBLE);
+
             }
             catch (NameNotFoundException ex)
             {
@@ -149,6 +163,10 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
         else if (view == mButtonMarket)
         {
             openMarket();
+        }
+        else if (view == mIvTrusted)
+        {
+            trust();
         }
     }
 
@@ -198,5 +216,21 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
         {
             Toast.makeText(mActivity, getString(R.string.message_error_market), Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void trust()
+    {
+        if (PermissionService.isTrusted(mActivity, mPackageName))
+        {
+            PermissionService.removeTrustedApp(mActivity, mPackageName);
+            mIvTrusted.setImageResource(R.drawable.trusted_off);
+        }
+        else
+        {
+            PermissionService.addTrustedApp(mActivity, mPackageName);
+            mIvTrusted.setImageResource(R.drawable.trusted_on);
+        }
+        ApplicationChangesService.notifyListeners();
+
     }
 }
