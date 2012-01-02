@@ -15,6 +15,8 @@
 package org.androidsoft.app.permission.service;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -25,9 +27,10 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Set;
+import org.androidsoft.app.permission.Constants;
 import org.androidsoft.app.permission.model.AppInfo;
 import org.androidsoft.app.permission.model.Permission;
 import org.androidsoft.app.permission.model.PermissionGroup;
@@ -42,15 +45,17 @@ public class PermissionService
     private static final String TAG = "androidsoft";
     private static NameComparator mNameComparator = new NameComparator();
     private static ScoreComparator mScoreComparator = new ScoreComparator();
+    private static Set<String> mTrustedApps;
+    private static boolean mRemoveTrusted = false;
 
     /**
      * 
      * @param context
      * @return
      */
-    public static List<AppInfo> getApplicationsSortedByName(Context context, boolean sortOrder)
+    public static List<AppInfo> getApplicationsSortedByName(Context context, boolean sortOrder , boolean showTrusted )
     {
-        List<AppInfo> list = getApplications(context);
+        List<AppInfo> list = getApplications(context , showTrusted );
         Collections.sort(list, mNameComparator);
         if (sortOrder)
         {
@@ -65,9 +70,9 @@ public class PermissionService
      * @param context
      * @return
      */
-    public static List<AppInfo> getApplicationsSortedByScore(Context context, boolean sortOrder)
+    public static List<AppInfo> getApplicationsSortedByScore(Context context, boolean sortOrder , boolean showTrusted )
     {
-        List<AppInfo> list = getApplications(context);
+        List<AppInfo> list = getApplications(context , showTrusted );
         Collections.sort(list, mScoreComparator);
         if (sortOrder)
         {
@@ -124,7 +129,47 @@ public class PermissionService
         return listGroups;
     }
 
-    private static List<AppInfo> getApplications(Context context)
+    public static boolean exists(Context context , String packageName)
+    {
+        try
+        {
+            PackageManager pm = context.getPackageManager();
+            PackageInfo pi = pm.getPackageInfo(packageName, PackageManager.GET_PERMISSIONS);
+        }
+        catch (NameNotFoundException ex)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public static void addTrustedApp( Context context , String appPackage )
+    {
+        Set<String> trustedApps = getTrustedApps(context);
+        if( !trustedApps.contains(appPackage))
+        {
+            trustedApps.add(appPackage);
+            saveTrustedApps( context , trustedApps );
+        }
+    }
+
+    public static boolean isTrusted( Context context , String appPackage)
+    {
+        Set<String> trustedApps = getTrustedApps(context);
+        return trustedApps.contains(appPackage);
+    }
+
+    public static void removeTrustedApp( Context context , String appPackage )
+    {
+        Set<String> trustedApps = getTrustedApps(context);
+        if( trustedApps.contains(appPackage))
+        {
+            trustedApps.remove(appPackage);
+            saveTrustedApps( context , trustedApps );
+        }
+    }
+    
+    private static List<AppInfo> getApplications(Context context , boolean showTrusted )
     {
         List<AppInfo> list = new ArrayList<AppInfo>();
         PackageManager pm = context.getPackageManager();
@@ -142,9 +187,57 @@ public class PermissionService
                 list.add(app);
             }
         }
-        return list;
+        return filterApplications(context, list, showTrusted );
     }
 
+    
+    private static List<AppInfo> filterApplications(Context context , List<AppInfo> list , boolean showTrusted )
+    {
+        List<AppInfo> listFiltered = new ArrayList<AppInfo>();
+        Set<String> trustedApps = getTrustedApps(context);
+        for( AppInfo app : list )
+        {
+            if( !trustedApps.contains( app.getPackageName() ))
+            {
+                listFiltered.add(app);
+            }
+            else
+            {
+                if( showTrusted )
+                {
+                    app.setTrusted( true );
+                    listFiltered.add(app);
+                }
+            }
+        }
+        return listFiltered;
+    }
+    
+    private static Set<String> getTrustedApps( Context context )
+    {
+        if( mTrustedApps == null )
+        {
+            mTrustedApps = loadTrustedPackageList( context );
+        }
+        return mTrustedApps;
+    }
+    
+    private static Set<String> loadTrustedPackageList(Context context)
+    {
+        Set<String> set = new HashSet<String>();
+        SharedPreferences prefs = context.getSharedPreferences( Constants.PREFS, Context.MODE_PRIVATE);
+        return prefs.getStringSet( Constants.KEY_TRUSTED_APPS, set);
+    }
+
+    private static void saveTrustedApps(Context context , Set<String> trustedApps )
+    {
+        SharedPreferences prefs = context.getSharedPreferences( Constants.PREFS, Context.MODE_PRIVATE);
+        Editor editor = prefs.edit();
+        editor.putStringSet( Constants.KEY_TRUSTED_APPS, trustedApps );
+        editor.commit();
+        mTrustedApps = trustedApps;
+    }
+    
     private static int getScore(String packageName, PackageManager pm)
     {
         int score = 0;
@@ -177,20 +270,6 @@ public class PermissionService
             }
         }
         return null;
-    }
-
-    public static boolean exists(Context context , String packageName)
-    {
-        try
-        {
-            PackageManager pm = context.getPackageManager();
-            PackageInfo pi = pm.getPackageInfo(packageName, PackageManager.GET_PERMISSIONS);
-        }
-        catch (NameNotFoundException ex)
-        {
-            return false;
-        }
-        return true;
     }
 
     private static class NameComparator implements Comparator<AppInfo>

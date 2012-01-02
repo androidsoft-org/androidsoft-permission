@@ -132,6 +132,11 @@ public class ApplicationAdapter implements ListAdapter
         {
             imageScore.setImageResource(R.drawable.dangerous);
         }
+        
+        if( info.isTrusted() )
+        {
+            imageScore.setImageResource(R.drawable.trusted);
+        }
 
         return convertView;
     }

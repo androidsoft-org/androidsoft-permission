@@ -23,18 +23,19 @@ import android.graphics.drawable.Drawable;
 public class AppInfo
 {
 
-    private String name;
-    private String packageName;
-    private String version;
-    private Drawable icon;
-    private int score;
+    private String _name;
+    private String _packageName;
+    private String _version;
+    private Drawable _icon;
+    private int _score;
+    private boolean _trusted;
 
     /**
      * @return the name
      */
     public String getName()
     {
-        return name;
+        return _name;
     }
 
     /**
@@ -42,7 +43,7 @@ public class AppInfo
      */
     public void setName(String name)
     {
-        this.name = name;
+        _name = name;
     }
 
     /**
@@ -50,7 +51,7 @@ public class AppInfo
      */
     public String getVersion()
     {
-        return version;
+        return _version;
     }
 
     /**
@@ -58,7 +59,7 @@ public class AppInfo
      */
     public void setVersion(String version)
     {
-        this.version = version;
+        _version = version;
     }
 
     /**
@@ -66,7 +67,7 @@ public class AppInfo
      */
     public Drawable getIcon()
     {
-        return icon;
+        return _icon;
     }
 
     /**
@@ -74,7 +75,7 @@ public class AppInfo
      */
     public void setIcon(Drawable icon)
     {
-        this.icon = icon;
+        _icon = icon;
     }
 
     /**
@@ -82,7 +83,7 @@ public class AppInfo
      */
     public int getScore()
     {
-        return score;
+        return _score;
     }
 
     /**
@@ -90,7 +91,7 @@ public class AppInfo
      */
     public void setScore(int score)
     {
-        this.score = score;
+        _score = score;
     }
 
     /**
@@ -98,7 +99,7 @@ public class AppInfo
      */
     public String getPackageName()
     {
-        return packageName;
+        return _packageName;
     }
 
     /**
@@ -106,6 +107,16 @@ public class AppInfo
      */
     public void setPackageName(String packageName)
     {
-        this.packageName = packageName;
+        _packageName = packageName;
+    }
+
+    public boolean isTrusted()
+    {
+        return _trusted;
+    }
+    
+    public void setTrusted(boolean trusted)
+    {
+        _trusted = trusted;
     }
 }
