@@ -27,9 +27,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import org.androidsoft.app.permission.Constants;
 import org.androidsoft.app.permission.model.AppInfo;
 import org.androidsoft.app.permission.model.Permission;
@@ -45,7 +43,7 @@ public class PermissionService
     private static final String TAG = "androidsoft";
     private static NameComparator mNameComparator = new NameComparator();
     private static ScoreComparator mScoreComparator = new ScoreComparator();
-    private static Set<String> mTrustedApps;
+    private static List<String> mTrustedApps;
     private static boolean mRemoveTrusted = false;
 
     /**
@@ -145,7 +143,7 @@ public class PermissionService
 
     public static void addTrustedApp( Context context , String appPackage )
     {
-        Set<String> trustedApps = getTrustedApps(context);
+        List<String> trustedApps = getTrustedApps(context);
         if( !trustedApps.contains(appPackage))
         {
             trustedApps.add(appPackage);
@@ -155,13 +153,13 @@ public class PermissionService
 
     public static boolean isTrusted( Context context , String appPackage)
     {
-        Set<String> trustedApps = getTrustedApps(context);
+        List<String> trustedApps = getTrustedApps(context);
         return trustedApps.contains(appPackage);
     }
 
     public static void removeTrustedApp( Context context , String appPackage )
     {
-        Set<String> trustedApps = getTrustedApps(context);
+        List<String> trustedApps = getTrustedApps(context);
         if( trustedApps.contains(appPackage))
         {
             trustedApps.remove(appPackage);
@@ -194,7 +192,7 @@ public class PermissionService
     private static List<AppInfo> filterApplications(Context context , List<AppInfo> list , boolean showTrusted )
     {
         List<AppInfo> listFiltered = new ArrayList<AppInfo>();
-        Set<String> trustedApps = getTrustedApps(context);
+        List<String> trustedApps = getTrustedApps(context);
         for( AppInfo app : list )
         {
             if( !trustedApps.contains( app.getPackageName() ))
@@ -213,7 +211,7 @@ public class PermissionService
         return listFiltered;
     }
     
-    private static Set<String> getTrustedApps( Context context )
+    private static List<String> getTrustedApps( Context context )
     {
         if( mTrustedApps == null )
         {
@@ -222,20 +220,32 @@ public class PermissionService
         return mTrustedApps;
     }
     
-    private static Set<String> loadTrustedPackageList(Context context)
+    private static List<String> loadTrustedPackageList(Context context)
     {
-        Set<String> set = new HashSet<String>();
+        List<String> trustedPackages = new ArrayList<String>();
         SharedPreferences prefs = context.getSharedPreferences( Constants.PREFS, Context.MODE_PRIVATE);
-        return prefs.getStringSet( Constants.KEY_TRUSTED_APPS, set);
+        int count = prefs.getInt( Constants.KEY_TRUSTED_COUNT , 0 );
+        for( int i = 0 ; i < count ; i++ )
+        {
+            String trusted = prefs.getString( Constants.KEY_TRUSTED_APP + i , "" );
+            trustedPackages.add(trusted);
+        }
+        log( "loadTrustedPackageList : " , trustedPackages );
+        return trustedPackages;
     }
 
-    private static void saveTrustedApps(Context context , Set<String> trustedApps )
+    private static void saveTrustedApps(Context context , List<String> trustedApps )
     {
         SharedPreferences prefs = context.getSharedPreferences( Constants.PREFS, Context.MODE_PRIVATE);
         Editor editor = prefs.edit();
-        editor.putStringSet( Constants.KEY_TRUSTED_APPS, trustedApps );
+        editor.putInt(Constants.KEY_TRUSTED_COUNT, trustedApps.size() );
+        for( int i = 0 ; i < trustedApps.size() ; i++ )
+        {
+            editor.putString( Constants.KEY_TRUSTED_APP + i, trustedApps.get(i) );
+        }
         editor.commit();
         mTrustedApps = trustedApps;
+        log( "saveTrustedApps : " , trustedApps );
     }
     
     private static int getScore(String packageName, PackageManager pm)
@@ -270,6 +280,14 @@ public class PermissionService
             }
         }
         return null;
+    }
+
+    private static void log(String text, List<String> trustedPackages)
+    {
+        for( String trusted : trustedPackages )
+        {
+            Log.d( TAG, text + trusted );
+        }
     }
 
     private static class NameComparator implements Comparator<AppInfo>
