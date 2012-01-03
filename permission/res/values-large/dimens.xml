@@ -18,6 +18,8 @@
 
 <!-- large dimensions (tablet) -->
 <resources>
+    <dimen name="bar_height">5dp</dimen>
+    <dimen name="bar_font">16sp</dimen>
     <dimen name="icon">100dp</dimen>
     <dimen name="icon_small_app">60dp</dimen>
     <dimen name="icon_score">60dp</dimen>

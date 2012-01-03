@@ -27,10 +27,9 @@
 	android:layout_height="wrap_content"
         android:gravity="center_vertical|center_horizontal">
             
-        <TableLayout
+        <TableLayout style="@style/table_bar"
             android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-            android:background="@color/dark_gray">
+	    android:layout_height="wrap_content" >
                 
             <TableRow>
                     

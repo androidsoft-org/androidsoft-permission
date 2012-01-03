@@ -40,6 +40,12 @@
         <item name="android:layout_margin">2px</item>
     </style>
     
+    <style name="table_bar">
+        <item name="android:background">@color/dark_gray</item>
+        <item name="android:layout_marginBottom">@dimen/padding</item>
+    </style>
+    
+    
     <style name="button" parent="@android:style/Widget.Button">
         <item name="android:gravity">center_vertical|center_horizontal</item>
         <item name="android:textColor">@color/blue</item>

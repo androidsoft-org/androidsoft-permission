@@ -20,6 +20,7 @@
 	android:orientation="vertical" 
         android:layout_width="match_parent"
 	android:layout_height="match_parent" 
+        android:layout_margin="@dimen/padding"
         android:padding="@dimen/padding_pane"
         android:background="@drawable/border">
             
