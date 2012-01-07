@@ -35,6 +35,7 @@ import org.androidsoft.app.permission.model.PermissionGroup;
 
 /**
  * Permission Service
+ *
  * @author Pierre Levy
  */
 public class PermissionService
@@ -47,13 +48,13 @@ public class PermissionService
     private static boolean mRemoveTrusted = false;
 
     /**
-     * 
-     * @param context
-     * @return
+     * Get applications sorted by name
+     * @param context The context
+     * @return The list
      */
-    public static List<AppInfo> getApplicationsSortedByName(Context context, boolean sortOrder , boolean showTrusted )
+    public static List<AppInfo> getApplicationsSortedByName(Context context, boolean sortOrder, boolean showTrusted)
     {
-        List<AppInfo> list = getApplications(context , showTrusted );
+        List<AppInfo> list = getApplications(context, showTrusted);
         Collections.sort(list, mNameComparator);
         if (sortOrder)
         {
@@ -64,13 +65,13 @@ public class PermissionService
     }
 
     /**
-     * 
-     * @param context
-     * @return
+     * Gets applications list sorted by score
+     * @param context The context
+     * @return The list
      */
-    public static List<AppInfo> getApplicationsSortedByScore(Context context, boolean sortOrder , boolean showTrusted )
+    public static List<AppInfo> getApplicationsSortedByScore(Context context, boolean sortOrder, boolean showTrusted)
     {
-        List<AppInfo> list = getApplications(context , showTrusted );
+        List<AppInfo> list = getApplications(context, showTrusted);
         Collections.sort(list, mScoreComparator);
         if (sortOrder)
         {
@@ -81,10 +82,10 @@ public class PermissionService
     }
 
     /**
-     * 
-     * @param permissions
-     * @param pm
-     * @return
+     * Gets the permission group list
+     * @param permissions Permissions
+     * @param pm the package manager
+     * @return The permission group list
      */
     public static List<PermissionGroup> getPermissions(String[] permissions, PackageManager pm)
     {
@@ -127,7 +128,13 @@ public class PermissionService
         return listGroups;
     }
 
-    public static boolean exists(Context context , String packageName)
+    /**
+     * Checks if package exists
+     * @param context The context
+     * @param packageName The package name
+     * @return true if the package exists, otherwise false
+     */
+    public static boolean exists(Context context, String packageName)
     {
         try
         {
@@ -141,33 +148,55 @@ public class PermissionService
         return true;
     }
 
-    public static void addTrustedApp( Context context , String appPackage )
+    /**
+     * Add a trusted app
+     * @param context The context
+     * @param appPackage The app package name
+     */
+    public static void addTrustedApp(Context context, String appPackage)
     {
         List<String> trustedApps = getTrustedApps(context);
-        if( !trustedApps.contains(appPackage))
+        if (!trustedApps.contains(appPackage))
         {
             trustedApps.add(appPackage);
-            saveTrustedApps( context , trustedApps );
+            saveTrustedApps(context, trustedApps);
         }
     }
 
-    public static boolean isTrusted( Context context , String appPackage)
+    /**
+     * Remove the app as trusted 
+     * @param context The context
+     * @param appPackage The app package name
+     */
+    public static void removeTrustedApp(Context context, String appPackage)
+    {
+        List<String> trustedApps = getTrustedApps(context);
+        if (trustedApps.contains(appPackage))
+        {
+            trustedApps.remove(appPackage);
+            saveTrustedApps(context, trustedApps);
+        }
+    }
+
+    /**
+     * Checks if the app is trusted
+     * @param context The context
+     * @param appPackage The app package name
+     * @return true if the app is marked as trusted
+     */
+    public static boolean isTrusted(Context context, String appPackage)
     {
         List<String> trustedApps = getTrustedApps(context);
         return trustedApps.contains(appPackage);
     }
 
-    public static void removeTrustedApp( Context context , String appPackage )
-    {
-        List<String> trustedApps = getTrustedApps(context);
-        if( trustedApps.contains(appPackage))
-        {
-            trustedApps.remove(appPackage);
-            saveTrustedApps( context , trustedApps );
-        }
-    }
-    
-    private static List<AppInfo> getApplications(Context context , boolean showTrusted )
+    /**
+     * Gets applications
+     * @param context The context
+     * @param showTrusted Show trusted apps
+     * @return The applications list
+     */
+    private static List<AppInfo> getApplications(Context context, boolean showTrusted)
     {
         List<AppInfo> list = new ArrayList<AppInfo>();
         PackageManager pm = context.getPackageManager();
@@ -185,69 +214,96 @@ public class PermissionService
                 list.add(app);
             }
         }
-        return filterApplications(context, list, showTrusted );
+        return filterApplications(context, list, showTrusted);
     }
 
-    
-    private static List<AppInfo> filterApplications(Context context , List<AppInfo> list , boolean showTrusted )
+    /**
+     * Filter the application list for trusted apps
+     * @param context The context
+     * @param list The source list
+     * @param showTrusted Show trusted
+     * @return The filtered list
+     */
+    private static List<AppInfo> filterApplications(Context context, List<AppInfo> list, boolean showTrusted)
     {
         List<AppInfo> listFiltered = new ArrayList<AppInfo>();
         List<String> trustedApps = getTrustedApps(context);
-        for( AppInfo app : list )
+        for (AppInfo app : list)
         {
-            if( !trustedApps.contains( app.getPackageName() ))
+            if (!trustedApps.contains(app.getPackageName()))
             {
                 listFiltered.add(app);
             }
             else
             {
-                if( showTrusted )
+                if (showTrusted)
                 {
-                    app.setTrusted( true );
+                    app.setTrusted(true);
                     listFiltered.add(app);
                 }
             }
         }
         return listFiltered;
     }
-    
-    private static List<String> getTrustedApps( Context context )
+
+    /**
+     * Gets trusted apps
+     * @param context The context
+     * @return The list
+     */
+    private static List<String> getTrustedApps(Context context)
     {
-        if( mTrustedApps == null )
+        if (mTrustedApps == null)
         {
-            mTrustedApps = loadTrustedPackageList( context );
+            mTrustedApps = loadTrustedPackageList(context);
         }
         return mTrustedApps;
     }
-    
+
+    /**
+     * Load trusted apps from the preferences
+     * @param context The context
+     * @return The list
+     */
     private static List<String> loadTrustedPackageList(Context context)
     {
         List<String> trustedPackages = new ArrayList<String>();
-        SharedPreferences prefs = context.getSharedPreferences( Constants.PREFS, Context.MODE_PRIVATE);
-        int count = prefs.getInt( Constants.KEY_TRUSTED_COUNT , 0 );
-        for( int i = 0 ; i < count ; i++ )
+        SharedPreferences prefs = context.getSharedPreferences(Constants.PREFS, Context.MODE_PRIVATE);
+        int count = prefs.getInt(Constants.KEY_TRUSTED_COUNT, 0);
+        for (int i = 0; i < count; i++)
         {
-            String trusted = prefs.getString( Constants.KEY_TRUSTED_APP + i , "" );
+            String trusted = prefs.getString(Constants.KEY_TRUSTED_APP + i, "");
             trustedPackages.add(trusted);
         }
-        log( "loadTrustedPackageList : " , trustedPackages );
+        log("loadTrustedPackageList : ", trustedPackages);
         return trustedPackages;
     }
 
-    private static void saveTrustedApps(Context context , List<String> trustedApps )
+    /**
+     * Save trusted apps in the preferences
+     * @param context The context
+     * @param trustedApps The trusted apps list
+     */
+    private static void saveTrustedApps(Context context, List<String> trustedApps)
     {
-        SharedPreferences prefs = context.getSharedPreferences( Constants.PREFS, Context.MODE_PRIVATE);
+        SharedPreferences prefs = context.getSharedPreferences(Constants.PREFS, Context.MODE_PRIVATE);
         Editor editor = prefs.edit();
-        editor.putInt(Constants.KEY_TRUSTED_COUNT, trustedApps.size() );
-        for( int i = 0 ; i < trustedApps.size() ; i++ )
+        editor.putInt(Constants.KEY_TRUSTED_COUNT, trustedApps.size());
+        for (int i = 0; i < trustedApps.size(); i++)
         {
-            editor.putString( Constants.KEY_TRUSTED_APP + i, trustedApps.get(i) );
+            editor.putString(Constants.KEY_TRUSTED_APP + i, trustedApps.get(i));
         }
         editor.commit();
         mTrustedApps = trustedApps;
-        log( "saveTrustedApps : " , trustedApps );
+        log("saveTrustedApps : ", trustedApps);
     }
-    
+
+    /**
+     * Score calculation
+     * @param packageName The app package name
+     * @param pm The package manager
+     * @return The score
+     */
     private static int getScore(String packageName, PackageManager pm)
     {
         int score = 0;
@@ -258,18 +314,31 @@ public class PermissionService
             {
                 for (String permission : pinfo.requestedPermissions)
                 {
-                    PermissionInfo pi = pm.getPermissionInfo(permission, PackageManager.GET_PERMISSIONS);
-                    score += (pi.protectionLevel != PermissionInfo.PROTECTION_NORMAL) ? 100 : 1;
+                    try
+                    {
+                        PermissionInfo pi = pm.getPermissionInfo(permission, PackageManager.GET_PERMISSIONS);
+                        score += (pi.protectionLevel != PermissionInfo.PROTECTION_NORMAL) ? 100 : 1;
+                    }
+                    catch (NameNotFoundException ex)
+                    {
+                        Log.e(TAG, "Permission name not found : " + permission );
+                    }
                 }
             }
         }
         catch (NameNotFoundException ex)
         {
-            Log.e(TAG, "Permission name not found : ");
+            Log.e(TAG, "Error getting package info : " + packageName );
         }
         return score;
     }
 
+    /**
+     * Gets the group
+     * @param list The group list
+     * @param name The group name
+     * @return The Group
+     */
     private static PermissionGroup getGroup(List<PermissionGroup> list, String name)
     {
         for (PermissionGroup group : list)
@@ -282,14 +351,22 @@ public class PermissionService
         return null;
     }
 
+    /**
+     * Log formatter
+     * @param text The message
+     * @param trustedPackages The list of trusted app packages
+     */
     private static void log(String text, List<String> trustedPackages)
     {
-        for( String trusted : trustedPackages )
+        for (String trusted : trustedPackages)
         {
-            Log.d( TAG, text + trusted );
+            Log.d(TAG, text + trusted);
         }
     }
 
+    /**
+     * Name comparator
+     */
     private static class NameComparator implements Comparator<AppInfo>
     {
 
@@ -299,6 +376,9 @@ public class PermissionService
         }
     }
 
+    /**
+     * Score comparator
+     */
     private static class ScoreComparator implements Comparator<AppInfo>
     {
 
