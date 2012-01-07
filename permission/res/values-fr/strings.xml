@@ -29,12 +29,15 @@
     <b>Nouveau dans la version 1.3:</b>\n
     \t• Marquage des applications de confiance.\n
     \t• Interface utilisateur améliorée.\n
-    \t• Correction de bugs mineurs (synchronistion après désinstallation).\n
+    <b>Nouveau dans la version 1.3.1:</b>\n
+    \t• Nouvel icône.\n
+    <b>Nouveau dans la version 1.3.2:</b>\n
+    \t• Correction d\'un bug dans le calcul du score.\n
     \n\nN\'oubliez de nous encourager en laissant une évaluation.
     </string>
 
      <!-- Credits screen -->
-    <string name="credits_current_version">Version 1.3.1</string>
+    <string name="credits_current_version">Version 1.3.2</string>
     <string name="credits_app_name">Permission Friendly Apps</string>
 
     <!-- Menu -->
