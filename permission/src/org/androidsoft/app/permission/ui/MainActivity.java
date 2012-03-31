@@ -53,8 +53,12 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
     private static final String KEY_TOGGLE_NAME = "toggle_name";
     private static final String KEY_TOGGLE_SCORE = "toggle_score";
     private static final String KEY_SHOW_TRUSTED = "show_trusted";
+    private static final String KEY_FILTER_ENABLED = "filter_enabled";
+    private static final String KEY_FILTER_VALUE = "filter_value";
+    
     private static final int SORT_SCORE = 0;
     private static final int SORT_NAME = 1;
+    
     private TextView mButtonSortByName;
     private TextView mButtonSortByScore;
     private ImageView mButtonShowTrusted;
@@ -217,6 +221,8 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
         editor.putBoolean(KEY_TOGGLE_NAME, mToggleName);
         editor.putBoolean(KEY_TOGGLE_SCORE, mToggleScore);
         editor.putBoolean(KEY_SHOW_TRUSTED, mShowTrusted);
+        editor.putBoolean(KEY_FILTER_ENABLED, mFilterEnabled);
+        editor.putString(KEY_FILTER_VALUE, mFilterValue);
         editor.commit();
     }
 
@@ -229,6 +235,8 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
         mToggleName = prefs.getBoolean(KEY_TOGGLE_NAME, false);
         mToggleScore = prefs.getBoolean(KEY_TOGGLE_SCORE, false);
         mShowTrusted = prefs.getBoolean(KEY_SHOW_TRUSTED, true);
+        mFilterEnabled = prefs.getBoolean(KEY_FILTER_ENABLED, false);
+        mFilterValue = prefs.getString(KEY_FILTER_VALUE, null );
         if (mInvalidate)
         {
             updateUI();
