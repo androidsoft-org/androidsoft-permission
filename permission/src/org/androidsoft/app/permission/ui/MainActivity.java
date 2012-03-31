@@ -14,6 +14,8 @@
  */
 package org.androidsoft.app.permission.ui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import org.androidsoft.app.permission.service.ApplicationChangesListener;
 import org.androidsoft.app.permission.service.PermissionService;
 import android.content.Intent;
@@ -39,7 +41,8 @@ import org.androidsoft.app.permission.model.AppInfo;
 import org.androidsoft.app.permission.service.ApplicationChangesService;
 
 /**
- * Main Activity 
+ * Main Activity
+ *
  * @author Pierre Levy
  */
 public class MainActivity extends FragmentActivity implements ApplicationsListFragment.AppListEventsCallback, OnClickListener, ApplicationChangesListener
@@ -55,13 +58,19 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
     private TextView mButtonSortByName;
     private TextView mButtonSortByScore;
     private ImageView mButtonShowTrusted;
+    private ImageView mButtonFilter;
+    private View mLayoutFilter;
+    private TextView mTvFilter;
     private View mIndicatorName;
     private View mIndicatorScore;
     private View mIndicatorTrusted;
+    private View mIndicatorFilter;
     private ApplicationsListFragment mApplicationsListFragment;
     private boolean mToggleName = true;
     private boolean mToggleScore = false;
     private boolean mShowTrusted;
+    private boolean mFilterEnabled;
+    private String mFilterValue;
     private int mSort;
     private boolean mInvalidate;
     private String mPackageName;
@@ -89,13 +98,21 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
 
         mButtonSortByScore = (TextView) findViewById(R.id.button_sort_score);
         mButtonSortByScore.setOnClickListener(this);
-        
-        mButtonShowTrusted = (ImageView) findViewById( R.id.button_show_trusted);
+
+        mButtonShowTrusted = (ImageView) findViewById(R.id.button_show_trusted);
         mButtonShowTrusted.setOnClickListener(this);
-        
-        mIndicatorName = findViewById( R.id.indicator_name );
-        mIndicatorScore = findViewById( R.id.indicator_score );
-        mIndicatorTrusted = findViewById( R.id.indicator_trusted );
+
+        mButtonFilter = (ImageView) findViewById(R.id.button_filter);
+        mButtonFilter.setOnClickListener(this);
+
+        mTvFilter = (TextView) findViewById(R.id.label_filter);
+        mLayoutFilter = findViewById(R.id.layout_filter);
+        mLayoutFilter.setOnClickListener(this);
+
+        mIndicatorName = findViewById(R.id.indicator_name);
+        mIndicatorScore = findViewById(R.id.indicator_score);
+        mIndicatorTrusted = findViewById(R.id.indicator_trusted);
+        mIndicatorFilter = findViewById(R.id.indicator_filter);
 
         FragmentManager fm = getSupportFragmentManager();
         mApplicationsListFragment = (ApplicationsListFragment) fm.findFragmentById(R.id.fragment_applications_list);
@@ -145,9 +162,18 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
         else if (view == mButtonSortByScore)
         {
             sortByScore();
-        } else if ( view == mButtonShowTrusted )
+        }
+        else if (view == mButtonShowTrusted)
         {
             toggleShowTrusted();
+        }
+        else if (view == mButtonFilter)
+        {
+            toggleFilter();
+        }
+        else if (view == mLayoutFilter)
+        {
+            updateFilter();
         }
     }
 
@@ -202,7 +228,7 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
         mSort = prefs.getInt(KEY_SORT, SORT_SCORE);
         mToggleName = prefs.getBoolean(KEY_TOGGLE_NAME, false);
         mToggleScore = prefs.getBoolean(KEY_TOGGLE_SCORE, false);
-        mShowTrusted = prefs.getBoolean(KEY_SHOW_TRUSTED, true );
+        mShowTrusted = prefs.getBoolean(KEY_SHOW_TRUSTED, true);
         if (mInvalidate)
         {
             updateUI();
@@ -226,6 +252,7 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
             applicationFragment.updateApplication(this, mPackageName);
         }
     }
+
     private void help()
     {
         Intent intent = new Intent(this, HelpActivity.class);
@@ -263,7 +290,7 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
         refreshAppList();
         refreshIndicators();
     }
-    
+
     private void update(List<AppInfo> list)
     {
         mApplicationsListFragment.update(list);
@@ -274,28 +301,28 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
         switch (mSort)
         {
             case SORT_NAME:
-                return PermissionService.getApplicationsSortedByName(this, mToggleName , mShowTrusted );
+                return PermissionService.getApplicationsSortedByName(this, mToggleName, mShowTrusted, mFilterValue);
 
             case SORT_SCORE:
             default:
-                return PermissionService.getApplicationsSortedByScore(this, mToggleScore , mShowTrusted);
+                return PermissionService.getApplicationsSortedByScore(this, mToggleScore, mShowTrusted, mFilterValue);
         }
     }
-    
+
     private void refreshIndicators()
     {
-        if( mSort == SORT_SCORE )
+        if (mSort == SORT_SCORE)
         {
-            mIndicatorScore.setBackgroundResource(R.drawable.bar_on );
-            mIndicatorName.setBackgroundResource(R.drawable.bar_off );
+            mIndicatorScore.setBackgroundResource(R.drawable.bar_on);
+            mIndicatorName.setBackgroundResource(R.drawable.bar_off);
         }
         else
         {
-            mIndicatorScore.setBackgroundResource(R.drawable.bar_off );
-            mIndicatorName.setBackgroundResource(R.drawable.bar_on );
+            mIndicatorScore.setBackgroundResource(R.drawable.bar_off);
+            mIndicatorName.setBackgroundResource(R.drawable.bar_on);
         }
-        
-        if( mShowTrusted )
+
+        if (mShowTrusted)
         {
             mIndicatorTrusted.setBackgroundResource(R.drawable.bar_on);
         }
@@ -303,9 +330,56 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
         {
             mIndicatorTrusted.setBackgroundResource(R.drawable.bar_off);
         }
+
+        if (mFilterEnabled)
+        {
+            mLayoutFilter.setVisibility(View.VISIBLE);
+            mIndicatorFilter.setBackgroundResource(R.drawable.bar_on);
+            mTvFilter.setText(mFilterValue);
+
+        }
+        else
+        {
+            mLayoutFilter.setVisibility(View.GONE);
+            mIndicatorFilter.setBackgroundResource(R.drawable.bar_off);
+        }
     }
 
-    
+    private void toggleFilter()
+    {
+        mFilterEnabled = !mFilterEnabled;
+
+        if (mFilterEnabled)
+        {
+            updateFilter();
+        }
+        else
+        {
+            mFilterValue = null;
+            updateUI();
+        }
+    }
+
+    private void updateFilter()
+    {
+        final String[] items = PermissionService.getPermissions();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.dialog_title_select_permission));
+        builder.setItems(items, new DialogInterface.OnClickListener()
+        {
+
+            public void onClick(DialogInterface dialog, int item)
+            {
+                mFilterValue = items[item];
+                updateUI();
+            }
+        });
+        
+        AlertDialog alert = builder.create();
+        
+        alert.show();
+
+    }
 
     private class LoadingTask extends AsyncTask<Void, Void, Void>
     {

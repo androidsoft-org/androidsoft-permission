@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/* Copyright (c) 2010-2012 Pierre LEVY androidsoft.org
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+-->
+
+<TableLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/table_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+                
+    <TableRow>
+                    
+        <TextView style="@style/text_bar" 
+            android:id="@+id/button_sort_score"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="@string/button_sort_score" />
+                
+        <TextView style="@style/text_bar" 
+            android:id="@+id/button_sort_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="@string/button_sort_name" />
+                
+        <ImageView
+            android:id="@+id/button_show_trusted"
+            android:src="@drawable/trusted_indicator"
+            android:padding="10dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" 
+            android:layout_weight="1" />
+                
+        <ImageView
+            android:id="@+id/button_filter"
+            android:src="@drawable/filter_indicator"
+            android:padding="10dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" 
+            android:layout_weight="1" />
+            
+    </TableRow>
+    <TableRow>
+                
+        <ImageView style="@style/image_bar"
+            android:id="@+id/indicator_score"
+            android:background="@drawable/bar_on"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/bar_height" 
+            android:layout_weight="3" />
+        <ImageView style="@style/image_bar"
+            android:id="@+id/indicator_name"
+            android:background="@drawable/bar_off"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/bar_height" 
+            android:layout_weight="3" />
+        <ImageView style="@style/image_bar"
+            android:id="@+id/indicator_trusted"
+            android:background="@drawable/bar_on"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/bar_height" 
+            android:layout_weight="1" />
+        <ImageView style="@style/image_bar"
+            android:id="@+id/indicator_filter"
+            android:background="@drawable/bar_on"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/bar_height" 
+            android:layout_weight="1" />
+            
+    </TableRow>
+                
+</TableLayout>

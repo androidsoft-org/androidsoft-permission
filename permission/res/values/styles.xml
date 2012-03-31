@@ -35,6 +35,11 @@
         <item name="android:layout_gravity">center_horizontal|center_vertical</item>
     </style>
     
+    <style name="text_filter" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textSize">@dimen/bar_font</item>
+    </style>
+    
     <style name="image_bar"> 
         <item name="android:background">@color/dark_gray</item>
         <item name="android:layout_margin">2px</item>

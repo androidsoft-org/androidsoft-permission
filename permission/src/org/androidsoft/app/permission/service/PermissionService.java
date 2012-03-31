@@ -24,10 +24,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.PermissionGroupInfo;
 import android.content.pm.PermissionInfo;
 import android.util.Log;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import org.androidsoft.app.permission.Constants;
 import org.androidsoft.app.permission.model.AppInfo;
 import org.androidsoft.app.permission.model.Permission;
@@ -45,16 +42,16 @@ public class PermissionService
     private static NameComparator mNameComparator = new NameComparator();
     private static ScoreComparator mScoreComparator = new ScoreComparator();
     private static List<String> mTrustedApps;
-    private static boolean mRemoveTrusted = false;
+    private static Map<String, List<AppInfo>> mPermissionAppList = new HashMap<String, List<AppInfo>>(); 
 
     /**
      * Get applications sorted by name
      * @param context The context
      * @return The list
      */
-    public static List<AppInfo> getApplicationsSortedByName(Context context, boolean sortOrder, boolean showTrusted)
+    public static List<AppInfo> getApplicationsSortedByName(Context context, boolean sortOrder, boolean showTrusted, String filter )
     {
-        List<AppInfo> list = getApplications(context, showTrusted);
+        List<AppInfo> list = ( filter != null ) ? getFilteredApps( filter , showTrusted ) : getApplications(context, showTrusted);
         Collections.sort(list, mNameComparator);
         if (sortOrder)
         {
@@ -69,9 +66,9 @@ public class PermissionService
      * @param context The context
      * @return The list
      */
-    public static List<AppInfo> getApplicationsSortedByScore(Context context, boolean sortOrder, boolean showTrusted)
+    public static List<AppInfo> getApplicationsSortedByScore(Context context, boolean sortOrder, boolean showTrusted , String filter )
     {
-        List<AppInfo> list = getApplications(context, showTrusted);
+        List<AppInfo> list = ( filter != null ) ? getFilteredApps( filter , showTrusted ) : getApplications(context, showTrusted);
         Collections.sort(list, mScoreComparator);
         if (sortOrder)
         {
@@ -81,6 +78,7 @@ public class PermissionService
 
     }
 
+    
     /**
      * Gets the permission group list
      * @param permissions Permissions
@@ -189,6 +187,14 @@ public class PermissionService
         List<String> trustedApps = getTrustedApps(context);
         return trustedApps.contains(appPackage);
     }
+    
+    public static String[] getPermissions()
+    {
+        List<String> list = new ArrayList( mPermissionAppList.keySet());
+        Collections.sort( list );
+        return list.toArray( new String[1]);
+    }
+    
 
     /**
      * Gets applications
@@ -198,6 +204,7 @@ public class PermissionService
      */
     private static List<AppInfo> getApplications(Context context, boolean showTrusted)
     {
+        mPermissionAppList.clear();
         List<AppInfo> list = new ArrayList<AppInfo>();
         PackageManager pm = context.getPackageManager();
         for (PackageInfo info : pm.getInstalledPackages(PackageManager.GET_PERMISSIONS))
@@ -212,6 +219,7 @@ public class PermissionService
                 app.setIcon(info.applicationInfo.loadIcon(pm));
                 app.setScore(getScore(info.packageName, pm));
                 list.add(app);
+                registerPermissionApp( app , info.packageName , pm );
             }
         }
         return filterApplications(context, list, showTrusted);
@@ -362,6 +370,53 @@ public class PermissionService
         {
             Log.d(TAG, text + trusted);
         }
+    }
+
+    private static void registerPermissionApp(AppInfo app, String packageName, PackageManager pm)
+    {
+        try
+        {
+            PackageInfo pinfo = pm.getPackageInfo(packageName, PackageManager.GET_PERMISSIONS);
+            if (pinfo.requestedPermissions != null)
+            {
+                for (String permission : pinfo.requestedPermissions)
+                {
+                    try
+                    {
+                        PermissionInfo pi = pm.getPermissionInfo(permission, PackageManager.GET_PERMISSIONS);
+                        String label = pi.loadLabel(pm).toString();
+                        label = label.substring(0, 1).toUpperCase() + label.substring(1);
+                        register( label , app );
+                    }
+                    catch (NameNotFoundException ex)
+                    {
+                        Log.e(TAG, "Permission name not found : " + permission );
+                    }
+                }
+            }
+        }
+        catch (NameNotFoundException ex)
+        {
+            Log.e(TAG, "Error getting package info : " + packageName );
+        }
+    }
+
+    private static void register(String permission, AppInfo app)
+    {
+        List<AppInfo> list = mPermissionAppList.get( permission );
+        if( list == null )
+        {
+            list = new ArrayList<AppInfo>();
+            mPermissionAppList.put(permission, list);
+        }
+        list.add(app);
+        
+    }
+
+    private static List<AppInfo> getFilteredApps( String filter , boolean showTrusted)
+    {
+        // todo remove show trusted
+        return mPermissionAppList.get(filter);
     }
 
     /**
