@@ -175,9 +175,8 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
      */
     private void open()
     {
-        Intent intentOpen = new Intent(Intent.ACTION_MAIN);
         PackageManager pm = mActivity.getPackageManager();
-        intentOpen = pm.getLaunchIntentForPackage(mPackageName);
+        Intent intentOpen = pm.getLaunchIntentForPackage(mPackageName);
         if (intentOpen != null)
         {
             intentOpen.addCategory(Intent.CATEGORY_LAUNCHER);
