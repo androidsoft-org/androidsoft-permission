@@ -28,66 +28,9 @@
         android:padding="@dimen/padding_pane"
         android:layout_height="match_parent">
 
-         <TableLayout style="@style/table_bar"
-            android:layout_width="match_parent"
-	    android:layout_height="wrap_content" >
-                
-            <TableRow>
-                    
-                <TextView style="@style/text_bar" 
-                android:id="@+id/button_sort_score"
-                android:layout_width="0dp"
-		android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="@string/button_sort_score"
-                />
-                
-                <TextView style="@style/text_bar" 
-                android:id="@+id/button_sort_name"
-                android:layout_width="0dp"
-		android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="@string/button_sort_name"
-                />
-                
-                <ImageView
-                android:id="@+id/button_show_trusted"
-                android:src="@drawable/trusted_indicator"
-                android:padding="10dp"
-                android:layout_width="0dp"
-		android:layout_height="wrap_content" 
-                android:layout_weight="1"
-                 />
-                
-            </TableRow>
-            <TableRow>
-                
-                <ImageView style="@style/image_bar"
-                android:id="@+id/indicator_score"
-                android:background="@drawable/bar_on"
-                android:layout_width="0dp"
-		android:layout_height="@dimen/bar_height" 
-                android:layout_weight="2"
-                />
-                <ImageView style="@style/image_bar"
-                android:id="@+id/indicator_name"
-                android:background="@drawable/bar_off"
-                android:layout_width="0dp"
-		android:layout_height="@dimen/bar_height" 
-                android:layout_weight="2"
-                />
-                <ImageView style="@style/image_bar"
-                android:id="@+id/indicator_trusted"
-                android:background="@drawable/bar_on"
-                android:layout_width="0dp"
-		android:layout_height="@dimen/bar_height" 
-                android:layout_weight="1"
-                />
-            </TableRow>
-                
-        </TableLayout>
+        <include layout="@layout/action_bar" />
+        <include layout="@layout/filter" />
 
-        
         <fragment android:name="org.androidsoft.app.permission.ui.ApplicationsListFragment"
 		android:id="@+id/fragment_applications_list" 
                 android:layout_width="match_parent"

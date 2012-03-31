@@ -26,20 +26,15 @@
     </string>
     <string name="whats_new_dialog_title">Quoi de neuf dans Permission Friendly Apps</string>
     <string name="whats_new_dialog_message">Merci de mettre à jour Permission Friendly Apps\n\n
-    <b>Nouveau dans la version 1.3:</b>\n
-    \t• Marquage des applications de confiance.\n
-    \t• Interface utilisateur améliorée.\n
-    <b>Nouveau dans la version 1.3.1:</b>\n
-    \t• Nouvel icône.\n
-    <b>Nouveau dans la version 1.3.2:</b>\n
-    \t• Correction d\'un bug dans le calcul du score.\n
-    <b>Nouveau dans la version 1.3.3:</b>\n
-    \t• Correction d\'un bug dans l\'affichage sur Galaxy Note.\n
-    \n\nN\'oubliez de nous encourager en laissant une évaluation.
+    <b>Nouveau dans la version 1.4:</b>\n
+    \t• Filtrage des applications par permission :\n
+    \t• Vous pouvez désormais voir toutes les applications qui requièrent une permission donnée.\n
+    \n\nToujours aucune pub, ni permission requise.
+    \n\nN\'oubliez de laisser une évaluation sur Google Play.
     </string>
 
      <!-- Credits screen -->
-    <string name="credits_current_version">Version 1.3.3</string>
+    <string name="credits_current_version">Version 1.4.0</string>
     <string name="credits_app_name">Permission Friendly Apps</string>
 
     <!-- Menu -->
@@ -66,6 +61,7 @@
     
     <string name="message_error_open">Désolé, impossible d\'ouvrir cette application !</string>
     <string name="message_error_market">Désolé, impossible d\'ouvrir l\'Android Market !</string>
+    <string name="dialog_title_select_permission">Sélectionner une permission</string>
     
     
 </resources>
