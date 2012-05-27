@@ -22,6 +22,7 @@
 	android:layout_height="match_parent" >
 
     <ImageView android:id="@+id/icon_danger"
+        android:contentDescription="@string/iv_danger_icon"
         android:layout_width="@dimen/icon_score"
 	android:layout_height="@dimen/icon_score"
         android:padding="@dimen/padding_icon"/>

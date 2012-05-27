@@ -67,16 +67,16 @@ public class CreditsActivity extends BasicActivity
         p.setArrayCreditsRes(R.array.credits);
 
         p.setColorDefault(0xCC34BCDE);
-        p.setTextSizeDefault(32);
+        p.setTextSizeDefault(40);
         p.setTypefaceDefault(Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD));
-        p.setSpacingBeforeDefault(10);
-        p.setSpacingAfterDefault(18);
+        p.setSpacingBeforeDefault(14);
+        p.setSpacingAfterDefault(24);
 
         p.setColorCategory(0xCC5AD4F3);
-        p.setTextSizeCategory(20);
+        p.setTextSizeCategory(28);
         p.setTypefaceCategory(Typeface.create(Typeface.SANS_SERIF, Typeface.ITALIC));
-        p.setSpacingBeforeCategory(12);
-        p.setSpacingAfterCategory(12);
+        p.setSpacingBeforeCategory(16);
+        p.setSpacingAfterCategory(16);
 
         return p;
 

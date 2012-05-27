@@ -29,15 +29,16 @@
     <string name="whats_new_dialog_message">Thanks for upgrading Permission Friendly Apps\n\n
     <b>New in version 1.4:</b>\n
     \t• Filtering by permission : \n
+    <b>New in version 1.4.1:</b>\n
+    \t• Acessibility descriptions and minor enhancements and fixes \n
     \t  Now you can see all applications that require a given permission.\n
     \n\n• Still no ads and no permission required.
-    \n\n• Enjoy it and don\'t forget to leave a rating on Google Play.
-
+    \n\n• Enjoy it and don\'t forget to leave a rating on Google Play Store.
     </string>
 
 
     <!-- Credits screen -->
-    <string name="credits_current_version">Version 1.4.0</string>
+    <string name="credits_current_version">Version 1.4.1</string>
     <string name="credits_app_name">Permission Friendly Apps</string>
 
 
@@ -55,13 +56,27 @@
     <string name="message_no_application">Select an application to view its permissions</string>
     <string name="message_no_permission">Great ! This application requires no permission.\n\n\n
                It means that there is no ads, and it\'s totaly secure.\n\n\n
-               To encourage this kind of application,\n give them a good rating on the Android Market.\n\n
+               To encourage this kind of application,\n give them a good rating on the Google Play Store.\n\n
                </string>
     <string name="button_market">Rate this application</string>
     <string name="asset_help">help.html</string>
     
     <string name="message_error_open">Sorry, unable to open this application !</string>
-    <string name="message_error_market">Sorry, unable to access to the Android Market !</string>
+    <string name="message_error_market">Sorry, unable to access to the Google Play Store !</string>
     <string name="dialog_title_select_permission">Select a permission</string>
+    
+    <!-- Accessibility -->
+    <string name="iv_application_logo">Application\'s logo : a shield with a checkered heart shape</string>
+    <string name="iv_indicator_score">Score led indicator</string>
+    <string name="iv_indicator_name">Name led indicator</string>
+    <string name="iv_indicator_trusted">Trusted led indicator</string>
+    <string name="iv_indicator_filter">Filter led indicator</string>
+    <string name="iv_button_trusted">Trusted button icon</string>
+    <string name="iv_button_filter">Filter button icon</string>
+    <string name="iv_application_icon">Current application icon</string>
+    <string name="iv_score_icon">Score icon (heart or dangerous)</string>
+    <string name="iv_danger_icon">Dangerousity icon (heart or dangerous)</string>
+    
+    
 
 </resources>
