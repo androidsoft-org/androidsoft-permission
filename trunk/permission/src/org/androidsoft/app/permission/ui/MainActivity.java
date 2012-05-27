@@ -110,7 +110,7 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
         mButtonFilter.setOnClickListener(this);
 
         mTvFilter = (TextView) findViewById(R.id.label_filter);
-        mLayoutFilter = findViewById(R.id.layout_filter);
+        mLayoutFilter = findViewById(R.id.label_filter);
         mLayoutFilter.setOnClickListener(this);
 
         mIndicatorName = findViewById(R.id.indicator_name);

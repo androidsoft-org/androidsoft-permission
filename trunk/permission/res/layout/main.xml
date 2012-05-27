@@ -34,8 +34,9 @@
     <include layout="@layout/filter" />
         
     <fragment android:name="org.androidsoft.app.permission.ui.ApplicationsListFragment"
-		android:id="@+id/fragment_applications_list" 
-                android:layout_width="match_parent"
-		android:layout_height="wrap_content" />
+        style="@style/application_list" 
+	android:id="@+id/fragment_applications_list" 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
                 
 </LinearLayout>

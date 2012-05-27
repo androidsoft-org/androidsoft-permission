@@ -17,7 +17,8 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="horizontal" 
+        android:baselineAligned="false"
+        android:orientation="horizontal" 
         android:layout_width="match_parent"
 	android:layout_height="match_parent">
 
@@ -32,18 +33,20 @@
         <include layout="@layout/filter" />
 
         <fragment android:name="org.androidsoft.app.permission.ui.ApplicationsListFragment"
-		android:id="@+id/fragment_applications_list" 
-                android:layout_width="match_parent"
-		android:layout_height="match_parent" />
+            style="@style/application_list" 
+            android:id="@+id/fragment_applications_list" 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
                 
                 
     </LinearLayout>
 
     <LinearLayout android:id="@+id/note_detail_container"
-		android:orientation="horizontal" 
-                android:layout_weight="3"
-		android:layout_width="0dp" 
-                android:layout_height="match_parent" >
+        android:orientation="horizontal" 
+        android:layout_weight="3"
+	android:layout_width="0dp" 
+        android:layout_height="match_parent" >
+
         <fragment android:name="org.androidsoft.app.permission.ui.ApplicationFragment"
 		android:id="@+id/fragment_application_details" 
                 android:layout_width="match_parent"

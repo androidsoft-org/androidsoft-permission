@@ -38,6 +38,8 @@
     <style name="text_filter" parent="@android:style/TextAppearance.Medium">
         <item name="android:textColor">@color/blue</item>
         <item name="android:textSize">@dimen/bar_font</item>
+        <item name="android:background">@color/dark_gray</item>
+        <item name="android:padding">@dimen/padding</item>
     </style>
     
     <style name="image_bar"> 
@@ -47,7 +49,10 @@
     
     <style name="table_bar">
         <item name="android:background">@color/dark_gray</item>
-        <item name="android:layout_marginBottom">@dimen/padding</item>
+    </style>
+    
+    <style name="application_list">
+        <item name="android:layout_marginTop">@dimen/padding</item>
     </style>
     
     
