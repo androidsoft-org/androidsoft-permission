@@ -29,14 +29,14 @@
     <b>Nouveau dans la version 1.4:</b>\n
     \t• Filtrage des applications par permission :\n
     \t• Vous pouvez désormais voir toutes les applications qui requièrent une permission donnée.\n
-    <b>Nouveau dans la version 1.4.1:</b>\n
-    \t• Accessibilité et corrections mineures.\n
+    <b>Nouveau dans la version 1.4.2:</b>\n
+    \t• Correction d\'un bug de lecture de certaines permissions.\n
     \n\nToujours aucune pub, ni permission requise.
     \n\nN\'oubliez de laisser une évaluation sur Google Play.
     </string>
 
      <!-- Credits screen -->
-    <string name="credits_current_version">Version 1.4.1</string>
+    <string name="credits_current_version">Version 1.4.2</string>
     <string name="credits_app_name">Permission Friendly Apps</string>
 
     <!-- Menu -->

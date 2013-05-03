@@ -406,8 +406,11 @@ public class PermissionService
                     {
                         PermissionInfo pi = pm.getPermissionInfo(permission, PackageManager.GET_PERMISSIONS);
                         String label = pi.loadLabel(pm).toString();
-                        label = label.substring(0, 1).toUpperCase() + label.substring(1);
-                        register(label);
+                        if( (label !=  null) && (label.length() > 0 ))
+                        {    
+                            label = label.substring(0, 1).toUpperCase() + label.substring(1);
+                            register(label);
+                        }
                     }
                     catch (NameNotFoundException ex)
                     {
