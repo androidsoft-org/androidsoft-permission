@@ -1,0 +1,8 @@
+/permission/gen/
+/permission/nbandroid/
+/permission/bin/
+/.nb-gradle/private/
+/build/
+/.gradle/
+/bin/
+/gen/
