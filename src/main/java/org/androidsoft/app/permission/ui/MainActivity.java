@@ -1,4 +1,4 @@
-/* Copyright (c) 2010-2012 Pierre LEVY androidsoft.org
+/* Copyright (c) 2010-2014 Pierre LEVY androidsoft.org
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -223,7 +223,7 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
         editor.putBoolean(KEY_SHOW_TRUSTED, mShowTrusted);
         editor.putBoolean(KEY_FILTER_ENABLED, mFilterEnabled);
         editor.putString(KEY_FILTER_VALUE, mFilterValue);
-        editor.commit();
+        editor.apply();
     }
 
     @Override

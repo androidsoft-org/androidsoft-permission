@@ -1,4 +1,4 @@
-/* Copyright (c) 2010-2012 Pierre LEVY androidsoft.org
+/* Copyright (c) 2010-2014 Pierre LEVY androidsoft.org
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -48,6 +48,9 @@ public class PermissionService
      * Get applications sorted by name
      *
      * @param context The context
+     * @param sortOrder Sort Order
+     * @param showTrusted display trusted
+     * @param filter The permission filter
      * @return The list
      */
     public static List<AppInfo> getApplicationsSortedByName(Context context, boolean sortOrder, boolean showTrusted, String filter)
@@ -70,6 +73,9 @@ public class PermissionService
      * Gets applications list sorted by score
      *
      * @param context The context
+     * @param sortOrder Sort Order
+     * @param showTrusted display trusted
+     * @param filter The permission filter
      * @return The list
      */
     public static List<AppInfo> getApplicationsSortedByScore(Context context, boolean sortOrder, boolean showTrusted, String filter)
@@ -102,14 +108,12 @@ public class PermissionService
         if (permissions != null)
         {
 
-            for (int i = 0; i < permissions.length; i++)
+            for (String permission : permissions)
             {
                 try
                 {
-                    String permission = permissions[i];
                     PermissionInfo pi = pm.getPermissionInfo(permission, PackageManager.GET_PERMISSIONS);
                     PermissionGroupInfo pgi = pm.getPermissionGroupInfo(pi.group, PackageManager.GET_PERMISSIONS);
-
                     PermissionGroup group = getGroup(listGroups, pi.group);
                     if (group == null)
                     {
@@ -122,14 +126,20 @@ public class PermissionService
                     Permission p = new Permission();
                     p.setName(pi.name);
                     p.setLabel(pi.loadLabel(pm).toString());
-                    p.setDescription(pi.loadDescription(pm).toString());
+                    if( pi.loadDescription(pm) != null )
+                    {
+                        p.setDescription(pi.loadDescription(pm).toString());
+                    }
+                    else
+                    {
+                        p.setDescription( "Description non available" );
+                    }
                     p.setDangerous(pi.protectionLevel != PermissionInfo.PROTECTION_NORMAL);
                     group.addPermission(p);
-
                 }
                 catch (NameNotFoundException ex)
                 {
-                    Log.e(TAG, "Permission name not found : " + permissions[i]);
+                    Log.e(TAG, "Permission name not found : " + permission);
                 }
             }
         }
@@ -319,7 +329,7 @@ public class PermissionService
         {
             editor.putString(Constants.KEY_TRUSTED_APP + i, trustedApps.get(i));
         }
-        editor.commit();
+        editor.apply();
         mTrustedApps = trustedApps;
         log("saveTrustedApps : ", trustedApps);
     }
@@ -487,6 +497,7 @@ public class PermissionService
     private static class NameComparator implements Comparator<AppInfo>
     {
 
+        @Override
         public int compare(AppInfo app1, AppInfo app2)
         {
             return app1.getName().compareToIgnoreCase(app2.getName());
@@ -499,6 +510,7 @@ public class PermissionService
     private static class ScoreComparator implements Comparator<AppInfo>
     {
 
+        @Override
         public int compare(AppInfo app1, AppInfo app2)
         {
             return (app1.getScore() - app2.getScore());
