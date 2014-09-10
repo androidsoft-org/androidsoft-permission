@@ -27,16 +27,11 @@
     </string>
     <string name="whats_new_dialog_title">What\'s new in Permission Friendly Apps</string>
     <string name="whats_new_dialog_message">Thanks for upgrading Permission Friendly Apps\n\n
-    <b>New in version 1.4:</b>\n
-    \t• Filtering by permission : \n
-    <b>New in version 1.4.2:</b>\n
-    \t• Minor fixes.  \n
-    \t• Now you can see all applications that require a given permission.\n
     <b>New in version 1.4.3:</b>\n
     \t• Minor fixes.  \n
     \t• Android API upgrade.
-    \n\n Still no ads and no permission required.
-    \n\n Enjoy it and don\'t forget to leave a rating on Google Play Store.
+    \n\n <b>Still no ads and no permission required.</b>
+    \n\n <b>Enjoy it and don\'t forget to leave a rating on Google Play Store.</b>
     </string>
 
 

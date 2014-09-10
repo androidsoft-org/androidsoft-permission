@@ -26,16 +26,11 @@
     </string>
     <string name="whats_new_dialog_title">Quoi de neuf dans Permission Friendly Apps</string>
     <string name="whats_new_dialog_message">Merci de mettre à jour Permission Friendly Apps\n\n
-    <b>Nouveau dans la version 1.4:</b>\n
-    \t• Filtrage des applications par permission :\n
-    \t• Vous pouvez désormais voir toutes les applications qui requièrent une permission donnée.\n
-    <b>Nouveau dans la version 1.4.2:</b>\n
-    \t• Correction d\'un bug de lecture de certaines permissions.\n
     <b>Nouveau dans la version 1.4.3:</b>\n
-    \t• Correction mineures.\n
+    \t• Corrections mineures.\n
     \t• Mise à jour de l\'API Android.\n
-    \n\nToujours aucune pub, ni permission requise.
-    \n\nN\'oubliez de laisser une évaluation sur Google Play.
+    \n\n<b>Toujours aucune pub, ni permission requise.</b>
+    \n\n<b>N\'oubliez de laisser une évaluation sur Google Play.</b>
     </string>
 
      <!-- Credits screen -->
