@@ -16,39 +16,56 @@
  */
 -->
 <resources>
+
+    <style name="AppTheme" parent="@android:style/Theme.Holo.Light">
+    </style>
+    
+    <style name="button_round" parent="@android:style/Widget.Button">
+        <item name="android:gravity">center_vertical|center_horizontal</item>
+        <item name="android:background">@drawable/button_round</item>
+        <item name="android:layout_width">@dimen/button_round</item>
+        <item name="android:layout_height">@dimen/button_round</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/font_button_round</item>
+        <item name="android:padding">@dimen/padding</item>
+    </style>
+
+           
     <style name="text_score" parent="@android:style/TextAppearance.Medium">
-        <item name="android:textColor">@color/blue</item>
+        <item name="android:textColor">@color/primary</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="text_message" parent="@android:style/TextAppearance.Medium">
-        <item name="android:textColor">@color/blue</item>
+        <item name="android:textColor">@color/primary</item>
     </style>
     
     <style name="text_bar" parent="@android:style/TextAppearance.Medium">
-        <item name="android:textColor">@color/blue</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
         <item name="android:shadowColor">@color/black</item>
-        <item name="android:background">@color/dark_gray</item>
+        <item name="android:background">@color/primary</item>
         <item name="android:textSize">@dimen/bar_font</item>
         <item name="android:gravity">center_horizontal|center_vertical</item>
         <item name="android:layout_gravity">center_horizontal|center_vertical</item>
     </style>
     
     <style name="text_filter" parent="@android:style/TextAppearance.Medium">
-        <item name="android:textColor">@color/blue</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/bar_font</item>
-        <item name="android:background">@color/dark_gray</item>
+        <item name="android:background">@color/primary</item> 
         <item name="android:padding">@dimen/padding</item>
     </style>
     
     <style name="image_bar"> 
-        <item name="android:background">@color/dark_gray</item>
+        <item name="android:background">@color/primary</item>
         <item name="android:layout_margin">1dp</item>
     </style>
     
     <style name="table_bar">
-        <item name="android:background">@color/dark_gray</item>
+        
+        <item name="android:background">@color/primary</item>
+        
     </style>
     
     <style name="application_list">
@@ -58,14 +75,16 @@
     
     <style name="button" parent="@android:style/Widget.Button">
         <item name="android:gravity">center_vertical|center_horizontal</item>
-        <item name="android:textColor">@color/blue</item>
+        <item name="android:textColor">@color/primary</item>
+        <!--
         <item name="android:shadowColor">@color/black</item>
         <item name="android:shadowDx">0</item>
         <item name="android:shadowDy">-1</item>
         <item name="android:shadowRadius">0.2</item>
+        -->
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:background">@drawable/button_custom</item>
+        <!--       <item name="android:background">@drawable/button_custom</item> -->
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
     </style>

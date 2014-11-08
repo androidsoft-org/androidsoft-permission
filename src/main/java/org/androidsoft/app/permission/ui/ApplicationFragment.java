@@ -22,6 +22,8 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -33,6 +35,7 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.List;
@@ -53,11 +56,11 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
     private TextView mTvVersion;
     private ExpandableListView mPermissions;
     private LinearLayout mApplicationLayout;
-    private LinearLayout mNoPermissionLayout;
+    private ScrollView mNoPermissionLayout;
     private Button mButtonOpen;
     private Button mButtonUninstall;
     private Button mButtonMarket;
-    private ImageView mIvTrusted;
+    private Button mButtonTrusted;
     private TextView mTvMessageNoApplication;
     private Activity mActivity;
     private String mPackageName;
@@ -81,14 +84,15 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
         mButtonOpen = (Button) v.findViewById(R.id.button_open);
         mButtonUninstall = (Button) v.findViewById(R.id.button_uninstall);
         mPermissions = (ExpandableListView) v.findViewById(R.id.permissions_list);
-        mNoPermissionLayout = (LinearLayout) v.findViewById(R.id.layout_no_permission);
+        mNoPermissionLayout = (ScrollView) v.findViewById(R.id.layout_no_permission);
         mButtonMarket = (Button) v.findViewById(R.id.button_market);
-        mIvTrusted = (ImageView) v.findViewById(R.id.trusted);
+        mButtonTrusted = (Button) v.findViewById(R.id.trusted);
         mButtonOpen.setOnClickListener(this);
         mButtonUninstall.setOnClickListener(this);
         mButtonMarket.setOnClickListener(this);
-        mIvTrusted.setOnClickListener(this);
+        mButtonTrusted.setOnClickListener(this);
         mTvMessageNoApplication = (TextView) v.findViewById(R.id.message_no_application);
+
         return v;
     }
 
@@ -116,19 +120,19 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
                 if (listGroups.isEmpty())
                 {
                     mNoPermissionLayout.setVisibility(View.VISIBLE);
-                    mIvTrusted.setVisibility(View.GONE);
+                    mButtonTrusted.setVisibility(View.GONE);
                 }
                 else
                 {
                     mNoPermissionLayout.setVisibility(View.GONE);
-                    mIvTrusted.setVisibility(View.VISIBLE);
+                    mButtonTrusted.setVisibility(View.VISIBLE);
                     if (PermissionService.isTrusted(mActivity, mPackageName))
                     {
-                        mIvTrusted.setImageResource(R.drawable.trusted_on);
+                        mButtonTrusted.setBackgroundResource( R.drawable.button_trusted_on);
                     }
                     else
                     {
-                        mIvTrusted.setImageResource(R.drawable.trusted_off);
+                        mButtonTrusted.setBackgroundResource( R.drawable.button_trusted_off);
                     }
                 }
                 mTvMessageNoApplication.setVisibility(View.GONE);
@@ -164,7 +168,7 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
         {
             openMarket();
         }
-        else if (view == mIvTrusted)
+        else if (view == mButtonTrusted)
         {
             trust();
         }
@@ -219,15 +223,16 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
 
     private void trust()
     {
+        Resources res = mActivity.getResources();
         if (PermissionService.isTrusted(mActivity, mPackageName))
         {
             PermissionService.removeTrustedApp(mActivity, mPackageName);
-            mIvTrusted.setImageResource(R.drawable.trusted_off);
+            mButtonTrusted.setBackgroundResource( R.drawable.button_trusted_off);
         }
         else
         {
             PermissionService.addTrustedApp(mActivity, mPackageName);
-            mIvTrusted.setImageResource(R.drawable.trusted_on);
+            mButtonTrusted.setBackgroundResource( R.drawable.button_trusted_on);
         }
         ApplicationChangesService.notifyListeners();
 

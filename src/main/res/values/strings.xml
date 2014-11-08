@@ -27,7 +27,7 @@
     </string>
     <string name="whats_new_dialog_title">What\'s new in Permission Friendly Apps</string>
     <string name="whats_new_dialog_message">Thanks for upgrading Permission Friendly Apps\n\n
-    <b>New in version 1.4.4:</b>\n
+    <b>New in version 2.0.0:</b>\n
     \t• Minor fixes.  \n
     \t• Android API upgrade.
     \n\n <b>Still no ads and no permission required.</b>
@@ -36,7 +36,7 @@
 
 
     <!-- Credits screen -->
-    <string name="credits_current_version">Version 1.4.4</string>
+    <string name="credits_current_version">Version 2.0.0</string>
     <string name="credits_app_name">Permission Friendly Apps</string>
 
 
@@ -52,9 +52,9 @@
     <string name="button_open">Open</string>
     <string name="button_uninstall">Uninstall</string>
     <string name="message_no_application">Select an application to view its permissions</string>
-    <string name="message_no_permission">Great ! This application requires no permission.\n\n\n
-               It means that there is no ads, and it\'s totaly secure.\n\n\n
-               To encourage this kind of application,\n give them a good rating on the Google Play Store.\n\n
+    <string name="message_no_permission">Great ! This application requires no permission.\n\n
+               It means that there is no ads, and it\'s totaly secure.\n\n
+               To encourage this kind of application,\n give them a good rating on the Google Play Store.\n
                </string>
     <string name="button_market">Rate this application</string>
     <string name="asset_help">help.html</string>

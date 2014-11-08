@@ -39,9 +39,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal|center_vertical">
 
-        <Button android:id="@+id/button_go"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
+        <Button style="@style/button_round"
+                android:id="@+id/button_go"
                 android:verticalSpacing="20dp"
                 android:horizontalSpacing="20dp"
                 android:text="@string/button_go"/>

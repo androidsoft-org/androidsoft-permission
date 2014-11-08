@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/round_shadow" android:top="@dimen/round_shadow_offset" />
+    <item android:drawable="@drawable/round_shape" android:bottom="@dimen/round_shape_offset" />
+</layer-list>
