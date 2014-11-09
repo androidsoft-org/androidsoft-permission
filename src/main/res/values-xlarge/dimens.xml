@@ -21,19 +21,22 @@
     <dimen name="bar_height">5dp</dimen>
     <dimen name="bar_font">16sp</dimen>
     <dimen name="icon">100dp</dimen>
-    <dimen name="icon_small_app">60dp</dimen>
+    <dimen name="icon_small_app">90dp</dimen>
     <dimen name="icon_score">60dp</dimen>
     <dimen name="padding_icon">10dp</dimen>
     <dimen name="padding">10dp</dimen>
-    <dimen name="padding_pane">30dp</dimen>
+    <dimen name="padding_pane">20dp</dimen>
     <dimen name="padding_text">5dp</dimen>
-    <dimen name="padding_market">20dp</dimen>
-    <dimen name="large_font_detail">32sp</dimen>
-    <dimen name="small_font_detail">20sp</dimen>
+    <dimen name="padding_market">10dp</dimen>
+    <dimen name="large_font_detail">24sp</dimen>
+    <dimen name="small_font_detail">16sp</dimen>
     <dimen name="large_font_list">20sp</dimen>
     <dimen name="small_font_list">16sp</dimen>
-    <dimen name="button_width">200dp</dimen>
-    <dimen name="button_width_market">200dp</dimen>
     <dimen name="padding_left_group">100dp</dimen>
-    <dimen name="font_group">28sp</dimen>
+    <dimen name="font_group">24sp</dimen>
+    <dimen name="button_round">80dp</dimen>
+    <dimen name="round_icon_padding">25dp</dimen>   
+    <dimen name="round_shadow_offset">10px</dimen>
+    <dimen name="round_shape_offset">5px</dimen>
+    
 </resources>

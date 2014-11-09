@@ -121,10 +121,12 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
                 {
                     mNoPermissionLayout.setVisibility(View.VISIBLE);
                     mButtonTrusted.setVisibility(View.GONE);
+                    mButtonMarket.setVisibility( View.VISIBLE);
                 }
                 else
                 {
                     mNoPermissionLayout.setVisibility(View.GONE);
+                    mButtonMarket.setVisibility( View.GONE);
                     mButtonTrusted.setVisibility(View.VISIBLE);
                     if (PermissionService.isTrusted(mActivity, mPackageName))
                     {
@@ -228,11 +230,13 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
         {
             PermissionService.removeTrustedApp(mActivity, mPackageName);
             mButtonTrusted.setBackgroundResource( R.drawable.button_trusted_off);
+            Toast.makeText( mActivity, R.string.message_untrust, Toast.LENGTH_SHORT ).show();
         }
         else
         {
             PermissionService.addTrustedApp(mActivity, mPackageName);
             mButtonTrusted.setBackgroundResource( R.drawable.button_trusted_on);
+            Toast.makeText( mActivity, R.string.message_trust, Toast.LENGTH_SHORT ).show();
         }
         ApplicationChangesService.notifyListeners();
 

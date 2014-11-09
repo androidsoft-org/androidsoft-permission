@@ -48,17 +48,10 @@
 
             </LinearLayout>
 
-
             <TableLayout 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                     
-                <LinearLayout
-                    android:orientation="vertical" 
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content" >
-            
                     <TextView android:id="@+id/name"
                               android:layout_width="match_parent"
                               android:layout_height="wrap_content"
@@ -79,10 +72,8 @@
                               android:gravity="center"
                               android:paddingLeft="@dimen/padding_text"/>
 
-                </LinearLayout>
-            
-
             </TableLayout>
+
         </TableLayout>
     
         <LinearLayout
@@ -91,24 +82,30 @@
             android:layout_height="wrap_content" 
             android:padding="@dimen/padding_pane"
             android:gravity="center_vertical|center_horizontal">
+            
             <Button  style="@style/button_round"
                      android:id="@+id/button_open"
                      android:background="@drawable/button_open"
-                     android:layout_marginRight="@dimen/padding"
-                     android:text="" />
+                     android:layout_marginRight="@dimen/padding" />
+            
             <Button style="@style/button_round" 
                     android:id="@+id/button_uninstall"
                     android:background="@drawable/button_delete"
                     android:layout_marginLeft="@dimen/padding"
-                    android:layout_marginRight="@dimen/padding"
-                    android:text="" />            
-            <Button android:id="@+id/trusted"
+                    android:layout_marginRight="@dimen/padding" />   
+                     
+            <Button style="@style/button_round"
+                    android:id="@+id/trusted"
                     android:contentDescription="@string/iv_button_trusted"
-                    android:layout_width="@dimen/button_round"
-                    android:layout_height="@dimen/button_round"
                     android:layout_marginLeft="@dimen/padding"
+                    android:layout_marginRight="@dimen/padding"
                     android:padding="@dimen/padding"/>
             
+            <Button  style="@style/button_round"
+                     android:id="@+id/button_market"
+                     android:padding="@dimen/padding_market"
+                     android:background="@drawable/button_star"
+                     android:layout_marginLeft="@dimen/padding" />
         </LinearLayout>
     </LinearLayout>
 
@@ -123,26 +120,12 @@
                 android:layout_width="match_parent" 
                 android:layout_height="match_parent"
                 android:visibility="gone" >
-        <LinearLayout 
-            android:orientation="vertical" 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center" >
-        
             <TextView  
                 android:text="@string/message_no_permission"
                 android:gravity="center_vertical|center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         
-            <Button  style="@style/button_round"
-                     android:id="@+id/button_market"
-                     android:padding="@dimen/padding_market"
-                     android:text=""
-                     android:background="@drawable/button_star"
-                     android:layout_marginBottom="@dimen/padding" />
-        
-        </LinearLayout>
     </ScrollView>
     
     <ExpandableListView android:id="@+id/permissions_list"

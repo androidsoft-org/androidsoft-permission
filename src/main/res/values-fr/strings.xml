@@ -19,7 +19,7 @@
 <resources>
     <!-- What's new dialog -->
     <string name="first_run_dialog_title">Bienvenue dans Permission Friendly Apps</string>
-    <string name="first_run_dialog_message">Merci d\'avoir télécharger Permission Friendly Apps\n\n
+    <string name="first_run_dialog_message">Merci d\'avoir téléchargé Permission Friendly Apps\n\n
     Instructions :\n
     \t• Cliquer sur les applications pour afficher le détail des permissions.\n
     \n\n \n
@@ -45,17 +45,14 @@
     <string name="button_go">Go</string>
     <string name="button_sort_name">Tri par nom</string>
     <string name="button_sort_score">Tri par score</string>
-    <string name="button_open">Ouvrir</string>
-    <string name="button_uninstall">Désinstaller</string>
     <string name="message_no_application">Sélectionner une application pour visualiser ses permissions</string>
     <string name="message_no_permission"> Cette application ne requiert aucune permission !\n\n
-               Cela signifie qu\'elle ne contient pas de pubs \n
+               Cela signifie qu\'elle ne contient pas de publicités \n
                et qu\'elle ne présente aucun danger potentiel.\n\n
-               Pour encourager ce type d\'application\n
+               Pour encourager ce type d\'application,\n
                donner leur une bonne note sur le Google Play Store.\n
                </string>
                
-    <string name="button_market">Noter cette application</string>
     <string name="asset_help">help-fr.html</string>
     
     <string name="message_error_open">Désolé, impossible d\'ouvrir cette application !</string>
@@ -73,5 +70,8 @@
     <string name="iv_application_icon">Icone de l\application courante</string>
     <string name="iv_score_icon">Icone du score (coeur ou danger)</string>
     <string name="iv_danger_icon">Icone de dangerosité (coeur ou danger)</string>
+
+    <string name="message_untrust">L\'application a été retirée de la liste de confiance !</string>
+    <string name="message_trust">L\'application a été ajoutée à la liste de confiance !</string>
     
 </resources>

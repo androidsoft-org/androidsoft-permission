@@ -49,14 +49,11 @@
     <string name="button_go">Go</string>
     <string name="button_sort_name">Sort by name</string>
     <string name="button_sort_score">Sort by score</string>
-    <string name="button_open">Open</string>
-    <string name="button_uninstall">Uninstall</string>
     <string name="message_no_application">Select an application to view its permissions</string>
     <string name="message_no_permission">Great ! This application requires no permission.\n\n
                It means that there is no ads, and it\'s totaly secure.\n\n
                To encourage this kind of application,\n give them a good rating on the Google Play Store.\n
                </string>
-    <string name="button_market">Rate this application</string>
     <string name="asset_help">help.html</string>
     
     <string name="message_error_open">Sorry, unable to open this application !</string>
@@ -75,6 +72,8 @@
     <string name="iv_score_icon">Score icon (heart or dangerous)</string>
     <string name="iv_danger_icon">Dangerousity icon (heart or dangerous)</string>
     
+    <string name="message_untrust">The application has been removed from the trusted list!</string>
+    <string name="message_trust">The application has been added to the trusted list!</string>
     
 
 </resources>
