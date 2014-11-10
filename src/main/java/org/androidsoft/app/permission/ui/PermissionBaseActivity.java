@@ -14,36 +14,54 @@
  */
 package org.androidsoft.app.permission.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
-import android.widget.TextView;
 import org.androidsoft.app.permission.R;
 import org.androidsoft.app.permission.service.PreferencesService;
-import org.androidsoft.utils.res.ResourceUtils;
-import org.androidsoft.utils.res.ResourceImageGetter;
+import org.androidsoft.app.permission.service.ThemeChangesListener;
 import org.androidsoft.utils.ui.BasicActivity;
 
 /**
- * Help activity
- * @author Pierre Levy
+ * Permission Base Activity
+ * @author Pierre LEVY
  */
-public class HelpActivity extends PermissionBaseActivity
+public abstract class PermissionBaseActivity extends BasicActivity implements ThemeChangesListener
 {
-    @Override
+    
+        @Override
     public void onCreate(Bundle icicle)
     {
-    
+
         super.onCreate(icicle);
 
-        setContentView(R.layout.help);
+        PreferencesService.addThemeListener( this );
+        setTheme(PreferencesService.getThemeId());
         
-        TextView tv = (TextView) findViewById(R.id.help);
-        String asset = getString( R.string.asset_help );
+    }
 
-        String help = ResourceUtils.readAssetTextFile(this, asset );
-        tv.setText( Html.fromHtml( help , new ResourceImageGetter( this ) , null ));
+    /**
+     * {@inheritDoc } 
+     */
+    @Override
+    public int getMenuResource()
+    {
+        return R.menu.menu_close;
+    }
+
+    /**
+     * {@inheritDoc } 
+     */
+    @Override
+    public int getMenuCloseId()
+    {
+        return R.id.menu_close;
     }
 
     
-   
+    @Override
+    public void onChangeTheme()
+    {
+        recreate();
+    }
+    
 }

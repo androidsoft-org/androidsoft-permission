@@ -39,13 +39,15 @@ import java.util.List;
 import org.androidsoft.app.permission.R;
 import org.androidsoft.app.permission.model.AppInfo;
 import org.androidsoft.app.permission.service.ApplicationChangesService;
+import org.androidsoft.app.permission.service.PreferencesService;
+import org.androidsoft.app.permission.service.ThemeChangesListener;
 
 /**
  * Main Activity
  *
  * @author Pierre Levy
  */
-public class MainActivity extends FragmentActivity implements ApplicationsListFragment.AppListEventsCallback, OnClickListener, ApplicationChangesListener
+public class MainActivity extends FragmentActivity implements ApplicationsListFragment.AppListEventsCallback, OnClickListener, ApplicationChangesListener, ThemeChangesListener
 {
 
     public static String EXTRA_PACKAGE_NAME = "packageName";
@@ -55,10 +57,10 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
     private static final String KEY_SHOW_TRUSTED = "show_trusted";
     private static final String KEY_FILTER_ENABLED = "filter_enabled";
     private static final String KEY_FILTER_VALUE = "filter_value";
-    
+
     private static final int SORT_SCORE = 0;
     private static final int SORT_NAME = 1;
-    
+
     private TextView mButtonSortByName;
     private TextView mButtonSortByScore;
     private ImageView mButtonShowTrusted;
@@ -93,7 +95,9 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
-
+        
+        PreferencesService.addThemeListener(this);
+        setTheme(PreferencesService.getThemeId());
 
         setContentView(R.layout.main);
 
@@ -207,6 +211,9 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
             case R.id.menu_credits:
                 credits();
                 return true;
+            case R.id.menu_preferences:
+                preferences();
+                return true;
         }
         return false;
     }
@@ -236,7 +243,7 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
         mToggleScore = prefs.getBoolean(KEY_TOGGLE_SCORE, false);
         mShowTrusted = prefs.getBoolean(KEY_SHOW_TRUSTED, true);
         mFilterEnabled = prefs.getBoolean(KEY_FILTER_ENABLED, false);
-        mFilterValue = prefs.getString(KEY_FILTER_VALUE, null );
+        mFilterValue = prefs.getString(KEY_FILTER_VALUE, null);
         if (mInvalidate)
         {
             updateUI();
@@ -246,6 +253,13 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
         refreshIndicators();
     }
 
+    @Override
+    public void onChangeTheme()
+    {
+        recreate();
+    }
+
+    
     private void refreshAppList()
     {
         new LoadingTask().execute();
@@ -270,6 +284,12 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
     private void credits()
     {
         Intent intent = new Intent(this, CreditsActivity.class);
+        startActivity(intent);
+    }
+
+    private void preferences()
+    {
+        Intent intent = new Intent(this, PreferencesActivity.class);
         startActivity(intent);
     }
 
@@ -382,12 +402,13 @@ public class MainActivity extends FragmentActivity implements ApplicationsListFr
                 updateUI();
             }
         });
-        
+
         AlertDialog alert = builder.create();
-        
+
         alert.show();
 
     }
+
 
     private class LoadingTask extends AsyncTask<Void, Void, Void>
     {

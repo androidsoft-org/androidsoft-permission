@@ -21,6 +21,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import org.androidsoft.app.permission.R;
+import org.androidsoft.app.permission.service.PreferencesService;
 import org.androidsoft.utils.ui.WhatsNewActivity;
 
 /**
@@ -37,6 +38,8 @@ public class SplashActivity extends WhatsNewActivity implements OnClickListener
     {
         super.onCreate(icicle);
 
+        setTheme( PreferencesService.getThemeId() );
+        
         setContentView(R.layout.splash);
 
         mButtonPlay = (Button) findViewById(R.id.button_go);

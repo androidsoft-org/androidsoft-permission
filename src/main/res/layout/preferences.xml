@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent" 
+              android:layout_height="wrap_content">
+
+    <TextView style="@style/pref_title"
+        android:text="@string/pref_title"/>
+    
+    <TextView style="@style/pref_subtitle"
+        android:text="@string/pref_display_subtitle"/>
+    
+    <ToggleButton
+        android:id="@+id/checkbox_theme_dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding"
+        android:text="@string/checkbox_theme_dark"
+        android:layout_gravity="center_horizontal" />
+        
+        
+</LinearLayout>
+        

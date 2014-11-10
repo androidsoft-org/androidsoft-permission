@@ -27,22 +27,22 @@
     </string>
     <string name="whats_new_dialog_title">What\'s new in Permission Friendly Apps</string>
     <string name="whats_new_dialog_message">Thanks for upgrading Permission Friendly Apps\n\n
-    <b>New in version 2.0.0:</b>\n
-    \t• Minor fixes.  \n
-    \t• Android API upgrade.
+    <b>New in version 2.1.0:</b>\n
+    \t• Preferences to switch between Dark and Light theme.
     \n\n <b>Still no ads and no permission required.</b>
     \n\n <b>Enjoy it and don\'t forget to leave a rating on Google Play Store.</b>
     </string>
 
 
     <!-- Credits screen -->
-    <string name="credits_current_version">Version 2.0.0</string>
+    <string name="credits_current_version">Version 2.1.0</string>
     <string name="credits_app_name">Permission Friendly Apps</string>
 
 
     <!-- Menu -->
     <string name="menu_help">Help</string>
     <string name="menu_credits">About</string>
+    <string name="menu_preferences">Settings</string>
     
     <string name="app_name">Permission Friendly Apps</string>
     <string name="title_application_activity">Permission Friendly Apps</string>
@@ -75,5 +75,8 @@
     <string name="message_untrust">The application has been removed from the trusted list!</string>
     <string name="message_trust">The application has been added to the trusted list!</string>
     
+    <string name="pref_title">Preferences</string>
+    <string name="pref_display_subtitle">Display</string>
+    <string name="checkbox_theme_dark">Theme Dark</string>
 
 </resources>

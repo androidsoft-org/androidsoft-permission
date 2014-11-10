@@ -88,5 +88,22 @@
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
     </style>
+    
+    <style name="pref_title" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">@dimen/padding</item>
+    </style>
+
+    <style name="pref_subtitle" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:padding">@dimen/padding</item>
+    </style>
 
 </resources>

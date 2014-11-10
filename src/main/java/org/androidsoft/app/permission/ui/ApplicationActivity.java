@@ -28,17 +28,22 @@ import android.view.WindowManager;
 import org.androidsoft.app.permission.R;
 import org.androidsoft.app.permission.service.ApplicationChangesService;
 import org.androidsoft.app.permission.service.PermissionService;
+import org.androidsoft.app.permission.service.PreferencesService;
+import org.androidsoft.app.permission.service.ThemeChangesListener;
 
 /**
  * Application Activity
+ *
  * @author Pierre Levy
  */
-public class ApplicationActivity extends FragmentActivity implements ApplicationChangesListener
+public class ApplicationActivity extends FragmentActivity implements ApplicationChangesListener, ThemeChangesListener
 {
+
     private String mPackageName;
     private boolean mInvalidate;
+
     /**
-     * 
+     *
      * @param savedInstanceState
      */
     @Override
@@ -53,22 +58,23 @@ public class ApplicationActivity extends FragmentActivity implements Application
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
 
+        PreferencesService.addThemeListener(this);
+        setTheme(PreferencesService.getThemeId());
 
-        
         setContentView(R.layout.application_activity);
-        
+
         FragmentManager fm = getSupportFragmentManager();
-        ApplicationFragment applicationFragment = (ApplicationFragment) fm.findFragmentById( R.id.fragment_application_details );
-        
+        ApplicationFragment applicationFragment = (ApplicationFragment) fm.findFragmentById(R.id.fragment_application_details);
+
         Intent intent = getIntent();
-        mPackageName = intent.getStringExtra( MainActivity.EXTRA_PACKAGE_NAME );
-        
-        applicationFragment.updateApplication( this, mPackageName );
-        
+        mPackageName = intent.getStringExtra(MainActivity.EXTRA_PACKAGE_NAME);
+
+        applicationFragment.updateApplication(this, mPackageName);
+
         ApplicationChangesService.registerListener(this);
 
     }
-    
+
     /**
      * {@inheritDoc }
      */
@@ -95,6 +101,9 @@ public class ApplicationActivity extends FragmentActivity implements Application
             case R.id.menu_credits:
                 credits();
                 return true;
+            case R.id.menu_preferences:
+                preferences();
+                return true;
         }
         return false;
     }
@@ -103,13 +112,17 @@ public class ApplicationActivity extends FragmentActivity implements Application
     protected void onResume()
     {
         super.onResume();
-        if( mInvalidate && !PermissionService.exists( this, mPackageName ))
+        if (mInvalidate && !PermissionService.exists(this, mPackageName))
         {
             finish();
         }
     }
-    
-    
+
+    @Override
+    public void onChangeTheme()
+    {
+        recreate();
+    }
 
     private void help()
     {
@@ -123,6 +136,13 @@ public class ApplicationActivity extends FragmentActivity implements Application
         startActivity(intent);
     }
 
+    private void preferences()
+    {
+        Intent intent = new Intent(this, PreferencesActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
     public void onApplicationChange()
     {
         mInvalidate = true;

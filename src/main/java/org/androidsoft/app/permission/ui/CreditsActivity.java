@@ -18,15 +18,16 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import org.androidsoft.app.permission.R;
+import org.androidsoft.app.permission.service.PreferencesService;
 import org.androidsoft.utils.credits.CreditsParams;
 import org.androidsoft.utils.credits.CreditsView;
-import org.androidsoft.utils.ui.BasicActivity;
 
 /**
  * Credits activity
+ *
  * @author Pierre Levy
  */
-public class CreditsActivity extends BasicActivity
+public class CreditsActivity extends PermissionBaseActivity
 {
 
     @Override
@@ -39,31 +40,21 @@ public class CreditsActivity extends BasicActivity
 
     }
 
-    /**
-     * {@inheritDoc } 
-     */
-    @Override
-    public int getMenuResource()
-    {
-        return R.menu.menu_close;
-    }
-
-    /**
-     * {@inheritDoc } 
-     */
-    @Override
-    public int getMenuCloseId()
-    {
-        return R.id.menu_close;
-    }
-    
     private CreditsParams getCreditsParams()
     {
         CreditsParams p = new CreditsParams();
         p.setAppNameRes(R.string.credits_app_name);
         p.setAppVersionRes(R.string.credits_current_version);
-        p.setBitmapBackgroundRes(R.drawable.background);
-        p.setBitmapBackgroundLandscapeRes(R.drawable.background_land);
+        if (PreferencesService.isThemeDark())
+        {
+            p.setBitmapBackgroundRes(R.drawable.background_dark);
+            p.setBitmapBackgroundLandscapeRes(R.drawable.background_dark);
+        }
+        else
+        {
+            p.setBitmapBackgroundRes(R.drawable.background);
+            p.setBitmapBackgroundLandscapeRes(R.drawable.background_land);
+        }
         p.setArrayCreditsRes(R.array.credits);
 
         p.setColorDefault(0xffff8000);
