@@ -17,7 +17,9 @@ package org.androidsoft.app.permission.service;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.util.Log;
 import java.util.ArrayList;
+import org.androidsoft.app.permission.Constants;
 
 /**
  * Preferences Service
@@ -26,14 +28,12 @@ import java.util.ArrayList;
  */
 public class PreferencesService
 {
-    
-    
     private static final String PREF_NAME = "PermissionFriendlyAppsPreferences";
     private static final String PREF_THEME = "Theme";
     private static final int THEME_LIGHT = 0;
     private static final int THEME_DARK = 1;
 
-    private static int mTheme = 1;
+    private static int mTheme;
     private static ArrayList<ThemeChangesListener> mThemeListeners = new ArrayList<ThemeChangesListener>();
 
     public static int getThemeId()
@@ -42,11 +42,11 @@ public class PreferencesService
         
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
-            nThemeId = isThemeDark() ? android.R.style.Theme_Material : android.R.style.Theme_Material_Light;
+            nThemeId = isThemeDark() ? android.R.style.Theme_Material : android.R.style.Theme_Material_Light_DarkActionBar;
         }
         else
         {
-            nThemeId = isThemeDark() ? android.R.style.Theme_Holo : android.R.style.Theme_Holo_Light;
+            nThemeId = isThemeDark() ? android.R.style.Theme_Holo : android.R.style.Theme_Holo_Light_DarkActionBar;
         }
         return nThemeId;
     }
@@ -61,17 +61,25 @@ public class PreferencesService
         mThemeListeners.add(listener);
     }
     
-    public static void notifyThemeListeners( Context context, boolean bDarkTheme )
+    public static void notifyThemeListeners( Context context , boolean bDarkTheme )
     {
         mTheme = ( bDarkTheme ) ? THEME_DARK : THEME_LIGHT;
         SharedPreferences prefs = context.getSharedPreferences( PREF_NAME, Context.MODE_PRIVATE );
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt( PREF_THEME, mTheme );
         editor.apply();
+        Log.i( Constants.LOG_TAG, "New theme stored : " + mTheme );
         for( ThemeChangesListener listener : mThemeListeners )
         {
             listener.onChangeTheme();
         }
+    }
+
+    public static void loadPreferences(Context context)
+    {
+        SharedPreferences prefs = context.getSharedPreferences( PREF_NAME, Context.MODE_PRIVATE );
+        mTheme = prefs.getInt( PREF_THEME, THEME_LIGHT );
+        Log.i( Constants.LOG_TAG, "Theme loaded : " + mTheme );
     }
 
 }

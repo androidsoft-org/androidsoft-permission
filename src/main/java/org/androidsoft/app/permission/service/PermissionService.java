@@ -37,8 +37,6 @@ import org.androidsoft.app.permission.model.PermissionGroup;
  */
 public class PermissionService
 {
-
-    private static final String TAG = "androidsoft";
     private static NameComparator mNameComparator = new NameComparator();
     private static ScoreComparator mScoreComparator = new ScoreComparator();
     private static List<String> mTrustedApps;
@@ -139,7 +137,7 @@ public class PermissionService
                 }
                 catch (NameNotFoundException ex)
                 {
-                    Log.e(TAG, "Permission name not found : " + permission);
+                    Log.e(Constants.LOG_TAG, "Permission name not found : " + permission);
                 }
             }
         }
@@ -358,14 +356,14 @@ public class PermissionService
                     }
                     catch (NameNotFoundException ex)
                     {
-                        Log.e(TAG, "Permission name not found : " + permission);
+                        Log.e(Constants.LOG_TAG, "Permission name not found : " + permission);
                     }
                 }
             }
         }
         catch (NameNotFoundException ex)
         {
-            Log.e(TAG, "Error getting package info : " + packageName);
+            Log.e(Constants.LOG_TAG, "Error getting package info : " + packageName);
         }
         return score;
     }
@@ -399,7 +397,7 @@ public class PermissionService
     {
         for (String trusted : trustedPackages)
         {
-            Log.d(TAG, text + trusted);
+            Log.d(Constants.LOG_TAG, text + trusted);
         }
     }
 
@@ -424,14 +422,14 @@ public class PermissionService
                     }
                     catch (NameNotFoundException ex)
                     {
-                        Log.e(TAG, "Permission name not found : " + permission);
+                        Log.e(Constants.LOG_TAG, "Permission name not found : " + permission);
                     }
                 }
             }
         }
         catch (NameNotFoundException ex)
         {
-            Log.e(TAG, "Error getting package info : " + packageName);
+            Log.e(Constants.LOG_TAG, "Error getting package info : " + packageName);
         }
     }
 
@@ -482,14 +480,14 @@ public class PermissionService
                     }
                     catch (NameNotFoundException ex)
                     {
-                        Log.e(TAG, "Permission name not found : " + permission);
+                        Log.e(Constants.LOG_TAG, "Permission name not found : " + permission);
                     }
                 }
             }
         }
         catch (NameNotFoundException ex)
         {
-            Log.e(TAG, "Error getting package info : " + app.getPackageName());
+            Log.e(Constants.LOG_TAG, "Error getting package info : " + app.getPackageName());
         }
         return false;
     }

@@ -38,6 +38,7 @@ public class SplashActivity extends WhatsNewActivity implements OnClickListener
     {
         super.onCreate(icicle);
 
+        PreferencesService.loadPreferences( this );
         setTheme( PreferencesService.getThemeId() );
         
         setContentView(R.layout.splash);

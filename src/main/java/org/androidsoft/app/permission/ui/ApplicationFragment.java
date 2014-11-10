@@ -143,7 +143,7 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
             }
             catch (NameNotFoundException ex)
             {
-                Log.e(Constants.TAG, "Package name not found : " + packageName);
+                Log.e(Constants.LOG_TAG, "Package name not found : " + packageName);
             }
         }
         else
