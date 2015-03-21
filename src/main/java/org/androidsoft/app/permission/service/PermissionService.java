@@ -118,7 +118,9 @@ public class PermissionService
                         group = new PermissionGroup();
                         group.setName(pgi.name);
                         group.setLabel(pgi.loadLabel(pm).toString());
-                        group.setDescription(pgi.loadDescription(pm).toString());
+                        CharSequence description = pgi.loadDescription(pm);
+                        String strDescription = ( description != null ) ? description.toString() : "N/A";
+                        group.setDescription( strDescription );
                         listGroups.add(group);
                     }
                     Permission p = new Permission();
