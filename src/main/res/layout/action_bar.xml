@@ -41,7 +41,10 @@
             android:contentDescription="@string/iv_button_trusted"
             android:id="@+id/button_show_trusted"
             android:src="@drawable/trusted_indicator"
-            android:padding="10dp"
+            android:paddingTop="@dimen/padding_text"
+            android:paddingBottom="@dimen/padding_text"
+            android:paddingLeft="@dimen/padding_icon" 
+            android:paddingRight="@dimen/padding_icon"
             android:layout_width="0dp"
             android:layout_height="wrap_content" 
             android:layout_weight="1" />
@@ -50,7 +53,10 @@
             android:contentDescription="@string/iv_button_filter"
             android:id="@+id/button_filter"
             android:src="@drawable/filter_indicator"
-            android:padding="10dp"
+            android:paddingTop="@dimen/padding_text"
+            android:paddingBottom="@dimen/padding_text"
+            android:paddingLeft="@dimen/padding_icon" 
+            android:paddingRight="@dimen/padding_icon"
             android:layout_width="0dp"
             android:layout_height="wrap_content" 
             android:layout_weight="1" />

@@ -21,11 +21,11 @@
     <dimen name="bar_height">5dp</dimen>
     <dimen name="bar_font">16sp</dimen>
     <dimen name="icon">120dp</dimen>
-    <dimen name="icon_small_app">70dp</dimen>
-    <dimen name="icon_score">65dp</dimen>
+    <dimen name="icon_small_app">60dp</dimen>
+    <dimen name="icon_score">55dp</dimen>
     <dimen name="padding_icon">8dp</dimen>
-    <dimen name="padding">10dp</dimen>
-    <dimen name="padding_pane">10dp</dimen>
+    <dimen name="padding">5dp</dimen>
+    <dimen name="padding_pane">8dp</dimen>
     <dimen name="padding_text">2dp</dimen>
     <dimen name="padding_market">20dp</dimen>
     <dimen name="large_font_detail">16sp</dimen>
@@ -35,7 +35,7 @@
     <dimen name="padding_left_group">40dp</dimen>
     <dimen name="font_group">16sp</dimen>
     <dimen name="font_button_round">24sp</dimen>
-    <dimen name="button_round">70dp</dimen>
+    <dimen name="button_round">60dp</dimen>
     <dimen name="round_icon_padding">25dp</dimen>   
     <dimen name="round_shadow_offset">20px</dimen>
     <dimen name="round_shape_offset">4px</dimen>
