@@ -26,14 +26,14 @@
     </string>
     <string name="whats_new_dialog_title">Quoi de neuf dans Permission Friendly Apps</string>
     <string name="whats_new_dialog_message">Merci de mettre à jour Permission Friendly Apps\n\n
-    <b>Nouveau dans la version 2.1.0:</b>\n
+    <b>Nouveau dans la version 2.2.0:</b>\n
     \t• Préférences pour changer le thème graphique.\n
     \n\n<b>Toujours aucune pub, ni permission requise.</b>
     \n\n<b>N\'oubliez de laisser une évaluation sur Google Play.</b>
     </string>
 
      <!-- Credits screen -->
-    <string name="credits_current_version">Version 2.1.0</string>
+    <string name="credits_current_version">Version 2.2.0</string>
     <string name="credits_app_name">Permission Friendly Apps</string>
 
     <!-- Menu -->
